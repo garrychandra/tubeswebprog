@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/forum1.css">
+    <link rel="stylesheet" href="../css/responsive-navbar.css">
+    <!-- <link rel="stylesheet" href="../js/forum1.js"> -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <title>Forum 1</title>
+</head>
+
+<body>
+    <div id="header">
+        <img src="../images/w2e_bg_image.jpg" id="gambarHome">
+        <div id="textOverImage">
+            <h1>Wave to Earth</h1>
+        </div>
+
+    </div>
+
+    <div id="stickyHeader">
+        <h1>Wave to Earth</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../html/home.html">HOME</a></li>
+            <li><a href="../html/members.html">MEMBERS</a></li>
+            <li id="discography"><a href="../html/discography.html">DISCOGRAPHY</a>
+                <div id="discography-dropdown-content">
+                    <a href="../html/discography.html#card_1">Singles</a>
+                    <a href="../html/discography.html#card_2">EPs</a>
+                    <a href="../html/discography.html#card_3">Albums</a>
+                </div>
+            </li>
+            <li><a href="../html/forum1.html">FORUM</a></li>
+            <li><a href="updates.html">UPDATES</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div id="isi">
+
+            <div class="judul">
+                <h2>Let's Connect with Others!</h2>
+            </div>
+
+            <div class="form">
+
+                <form onsubmit="return verifyPassword(event)" id="form" action="">
+
+                    <h3>Log In</h3>
+
+                    <div class="input-box">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" class="userInput" placeholder="Input your username!" required>
+                        <!-- <div class="errorMessage"></div> -->
+                        <br><br>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="userInput" placeholder="Don't tell anyone!" required>
+                        <!-- <div class="errorMessage"></div> -->
+                    </div>
+
+                    <div class="remember-forgot">
+                        <input type="checkbox" name="remember" id="remember" onload="activateButton()"
+                            onchange="document.getElementById('submit').disabled = !this.checked" />
+                        <label>Remember me?</label>
+                        <a class="forgot" href="forum2.html">Forgot password?</a>
+                    </div>
+
+                    <div onload="disableSubmit()" class="submit">
+                        <input type="submit" value="Log In" name="submit" id="submit" onclick="popupOpen()">
+                        <input disabled="true" type="submit" value="Log In" name="submit" id="submit">
+                    </div>
+
+                    <div class="popup" id="popup">
+                        <h2>Congratulations!</h2>
+                        <h4>You have successfully logged in</h4>
+                        <p><a class="forum3" href="forum3.html">Click here to start</a></p>
+                    </div>
+
+                    <div class="register-link">
+                        <p><a class="register" href="forum2.html">Don't have an account?</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <p>&copy; Copyright 2024 </p>
+        <p>This website was created by <a href="authors.html">Authors</a></p>
+        <p><a href="https://www.instagram.com/wave_to_earth/profilecard/?igsh=MXJ1N3Z3MWhzZzUwdg==">Instagram</a> | <a
+                href="https://youtube.com/@wavetoearth?si=JQhUo71J6aTkDCLk">Youtube</a> | <a
+                href="https://vm.tiktok.com/ZSjUesE9N/">Tiktok</a> | <a href="https://wavetoearthmerchs.com/">Official
+                Merchandise</a></p>
+    </footer>
+
+    <script>
+        const popup = document.getElementById("popup");
+
+        function verifyPassword(e) {
+            e.preventDefault();
+            var pw = document.getElementById("password").value;
+
+            if (pw.length < 8) {
+                alert("Min. 8 characters");
+                return false;
+            } else if (pw.length > 15) {
+                alert("Max. 15 characters");
+                return false;
+            }
+
+            var element = document.getElementsByClassName("userInput")
+
+            function disableSubmit() {
+                document.getElementById("submit").disabled = true;
+            }
+
+            function activateButton() {
+                if (element) {
+                    document.getElementById("submit").disabled = false;
+                } else {
+                    return true;
+                }
+            }
+
+            popupOpen();
+            document.getElementById("form").reset();
+        }
+
+        function popupOpen() {
+            popup.classList.add("open-popup");
+            document.getElementById("form").reset();
+        }
+    </script>
+
+</body>
+
+</html>

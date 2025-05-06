@@ -1,0 +1,308 @@
+main {
+    color: white;
+    text-align: center;
+}
+
+main a {
+    all: unset;
+    cursor: pointer;
+}
+
+
+#about div {
+    margin: 0;
+    padding: 0;
+}
+
+.top-content {
+    width: 50%;
+    position: relative;
+}
+
+#top-left {
+    background-color: black;
+    display: flex;
+    overflow: hidden;
+}
+
+#members-text {
+    width: 55%;
+    position: relative;
+    background-color: black;
+    padding: 0;
+    transition: width 0.8s;
+}
+
+#members-text span {
+    margin: 0;
+    position: absolute;
+    top: 55;
+    right: -55;
+    rotate: 270deg;
+}
+
+.top-left-content {
+    background-repeat: none;
+    background-size: cover;
+    width: 15%;
+    margin: 0 -12%;
+    padding: 0 12%;
+    transition: width 0.8s;
+    overflow: none;
+}
+
+
+
+
+.member-name {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.455), rgba(0, 0, 0, 0.181), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.member-name h1 {
+    opacity: 1;
+    position: relative;
+    left: -70;
+    rotate: 270deg;
+    width: 200px;
+    font-size: 200%;
+}
+
+#john-cha h1 {
+    top: 39;
+}
+
+#kim-daniel h1 {
+    top: 50;
+}
+
+#shin-donggyu h1 {
+    top: 70;
+    left: -80;
+    width: 230px;
+}
+
+
+#john-cha {
+    background-image: url(../images/John\ Cha\ w2e.jpg);
+    overflow: none;
+}
+
+#kim-daniel {
+    background-image: url(../images/Kim\ Daniel\ w2e.jpg);
+    overflow: none;
+}
+
+#shin-donggyu {
+    background-image: url(../images/Shin\ Donggyu\ w2e.jpg);
+    overflow: none;
+}
+
+#top-right {
+    background-color: black;
+    background-image: url(../images/wave-to-earth-about-image-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#top {
+    height: 64%;
+    display: flex;
+}
+
+#center {
+    height: 64%;
+    display: flex;
+}
+
+#center-left {
+    background-color: black;
+    width: 25%;
+    color: white;
+    background-image: linear-gradient(to right, black, black , #F7F7F7,#F7F7F7);
+}
+
+
+
+#center-center {
+    overflow: hidden;
+    background-color: #F7F7F7 !important;
+    color: black;
+    width: 50%;
+}
+
+#center-center p {
+    margin: 10px;
+}
+
+
+
+
+#center-center a {
+    font-weight: 600;
+}
+
+#center-center a:hover {
+    text-decoration: underline;
+}
+
+
+#center-right h1{
+    rotate: 90deg;
+}
+
+
+#center-right {
+    width: 25%;
+    background-image: linear-gradient(to right, #F7F7F7, #F7F7F7, black,black);
+}
+
+
+
+
+#bottom {
+    height: 64%;
+    display: flex;
+    overflow: hidden;
+}
+
+.bottom-content {
+    width: 50%;
+}
+
+#bottom-left {
+    background-color: black;
+    background-image: url(../images/wave-to-earth-about-image-2-edited.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#bottom-right a{
+    width: fit-content;
+    display: block;
+    margin: auto;
+    transition: scale 300ms;
+}
+
+#bottom-right a:hover{
+    scale: 1.15;
+}
+
+#bottom-right {
+
+    h1 {
+        padding: 0;
+        margin: 0;
+        margin-top: 15px;
+    }
+}
+
+@layer demo {
+    @layer base {
+
+        .cards,
+        .cards * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        :root {
+            --cover-size: 8rem;
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --cover-size: 7rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --cover-size: 6rem;
+            }
+        }
+
+        #cards {
+            margin: 0;
+            padding: 0;
+        }
+
+        .cards {
+            list-style: none;
+            overflow-x: scroll;
+            width: 100%;
+            white-space: nowrap;
+            background: rgba(0 0 0 / 0.5);
+            padding-bottom: 20px;
+        }
+
+
+        .cards::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .cards li {
+            perspective: 50em;
+            position: relative;
+            z-index: 1;
+            will-change: z-index;
+            user-select: none;
+        }
+
+        @layer scroll-snapping {
+            #controls:has(#scroll-snapping:checked)~.cards:not(.active) {
+                scroll-snap-type: x mandatory;
+            }
+
+            #controls:has(#scroll-snapping:checked)~.cards li {
+                scroll-snap-align: center;
+            }
+        }
+
+        .cards li {
+            display: inline-block;
+            width: var(--cover-size);
+            height: var(--cover-size);
+        }
+
+        .cards li {
+            perspective: 50em;
+            position: relative;
+            z-index: 1;
+            will-change: z-index;
+            user-select: none;
+        }
+
+        .cards li img {
+            display: block;
+            width: var(--cover-size);
+            height: var(--cover-size);
+            -webkit-box-reflect: below 0.5em linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
+        }
+
+        .cards {
+            --size: 6;
+            min-height: calc(var(--cover-size) * 2.5);
+            width: calc(var(--cover-size) * var(--size));
+            margin: 0 auto;
+            padding: calc(var(--cover-size) / 3 * 2) 0;
+            max-width: 90vw;
+        }
+
+        .cards li:first-of-type {
+            margin-left: calc(50% - (var(--cover-size) / 2));
+        }
+
+        .cards li:last-of-type {
+            margin-right: calc(50% - (var(--cover-size) / 2));
+        }
+    }
+}

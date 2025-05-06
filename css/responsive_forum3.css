@@ -1,0 +1,32 @@
+@media (max-width: 1080px) {
+    judul h2 {}
+        font-size: 30px;
+    main {
+        width: 25em;
+        height: 85vh;
+    }
+    main li .name::after {
+        font-size: 0.5em;
+    }
+    main .avatar {
+        width: 2em;
+        height: 2em;
+    }
+    .popup {
+        width: 300px;
+    }
+    .popup h2 {
+        font-size: 35px;
+    }
+    .popup h4 {
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .judul2 h2 {
+        font-size: 30px;
+    }
+    
+}
+
+
+@media (max-width: 450px) {}

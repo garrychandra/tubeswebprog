@@ -1,0 +1,25 @@
+@media only screen and (max-width: 760px) {
+    nav a {
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
+
+    nav li{
+        padding: 0;
+    }
+
+    nav ul {
+        display: block;
+        margin: 0;
+    }
+
+    nav ul ul {
+        display: none;
+        position: static;
+    }
+
+    #discography:hover #discography-dropdown-content {
+        display: none;
+    }
+}

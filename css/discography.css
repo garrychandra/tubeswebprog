@@ -1,0 +1,135 @@
+dialog{
+    border: none !important;
+    background-color: rgb(205, 205, 205);
+    box-shadow: 0 0 20px 5px black;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.modal-content{
+    z-index: 100;
+    padding: 0px 10px;
+    background-color: rgb(205, 205, 205);
+    color: black;
+    float: left;
+}
+
+.modal-text{
+    overflow: auto;
+}
+
+.modals-picture{
+    width: 30%;
+    margin: 0px auto;
+    box-shadow: 5px 5px 5px 1px rgb(96, 96, 96);
+}
+
+dialog::backdrop{
+    background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.streaming-platform{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.streaming-platform a{
+    all: unset;
+}
+
+.streaming-platform img {
+    padding-top: 5px;
+    width: 40px;
+}
+
+.streaming-platform img:hover{
+    scale: 1.08;
+    cursor: pointer;
+}
+
+main {
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.releaseTitle{
+    font-size:larger;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.releaseDate{
+    color: rgb(180, 180, 180);
+    font-size: small;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.seperator{
+    height: 2px;
+    background-color: rgb(104, 104, 104);
+    margin: auto;
+    width: 80%;
+}
+
+
+.card_content {
+    background-color: rgb(35, 35, 35);
+    width: 70%;
+    padding: 30px 20px;
+    margin-inline: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.card img{
+    width: 90%;
+    margin-inline: auto;
+    display: block;
+    margin-top: 5px;
+}
+
+.card{
+    animation: fade-in, linear;
+    animation-timeline: view();
+    animation-range-start: cover;
+    animation-range-end: 600px;
+}
+
+@keyframes fade-in{
+    from{scale: 0.7; opacity: 0;}
+    to{scale: 1;opacity: 1;}
+}
+
+#singles, #eps, #albums {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.single, .ep, .album{
+    width: 15%;
+    text-align: left;
+    overflow-wrap: normal;
+    background-color: black;
+    padding: 10px;
+    float: left;
+    margin: 20px;
+    border-radius: 5px;
+    transition: scale 150ms ease-out;
+}
+
+.single:hover, .ep:hover, .album:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+

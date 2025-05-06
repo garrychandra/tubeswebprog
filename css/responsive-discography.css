@@ -1,0 +1,18 @@
+@media only screen and (max-width: 880px){
+    .modal{
+        width: 300px;
+    }
+
+    .modal-text{
+        font-size: small;
+    }
+
+    .modals-picture{
+        width: 50%;
+    }
+
+    .single, .ep, .album{
+        width: 25%; 
+        font-size: small;
+    }
+}

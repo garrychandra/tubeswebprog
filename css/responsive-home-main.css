@@ -1,0 +1,34 @@
+@media only screen and (max-width: 750px){
+    #bottom-left {
+        display: none;
+    }
+    #bottom-right{
+        width: 100%;
+        height: fit-content;
+    }
+
+    #top-right {
+        display: none;
+    }
+    #top-left{
+        width: 100%;
+    }
+    #center-right {
+        display: none;
+    }
+    #center-left {
+        display: none;
+    }
+    #center-center{
+        width: 100%;
+        height: 100%
+    }
+
+    #center{
+        height: fit-content;
+    }
+
+    main {
+        overflow-x: hidden;
+    }
+}

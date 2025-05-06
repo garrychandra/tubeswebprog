@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/forum1_revisi.css">
+    <link rel="stylesheet" href="../css/responsive-navbar.css">
+
+    <script type="text/javascript" src="../js/forum1_forum2_revisi.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <title>Forum 1</title>
+</head>
+
+<body>
+    <div id="header">
+        <img src="../images/w2e_bg_image.jpg" id="gambarHome">
+        <div id="textOverImage">
+            <h1>Wave to Earth</h1>
+        </div>
+
+    </div>
+
+    <div id="stickyHeader">
+        <h1>Wave to Earth</h1>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="../html/home.html">HOME</a></li>
+            <li><a href="../html/members.html">MEMBERS</a></li>
+            <li id="discography"><a href="../html/discography.html">DISCOGRAPHY</a>
+                <div id="discography-dropdown-content">
+                    <a href="../html/discography.html#card_1">Singles</a>
+                    <a href="../html/discography.html#card_2">EPs</a>
+                    <a href="../html/discography.html#card_3">Albums</a>
+                </div>
+            </li>
+            <li><a href="../html/forum1.html">FORUM</a></li>
+            <li><a href="updates.html">UPDATES</a></li>
+        </ul>
+    </nav>
+
+    <div id="isi">
+
+        <div class="judul">
+            <h2>Let's Connect with Others!</h2>
+        </div>
+
+        <div class="form-wrapper">
+
+            <p id="error-message"></p>
+            <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
+
+            <form id="form" action="">
+                <h3>Log In</h3>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email-input" placeholder="Input your e-mail!" required>
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password-input" placeholder="Input your password!"
+                        required>
+                </div>
+
+                <button type="submit" class="btn" onclick="openPopup()">Log In</button>
+
+                <div class="popup" id="popup">
+                    <h2>Congratulations!</h2>
+                    <p>You have successfully signed up</p>
+                    <p><a href="forum3" href="forum3.html">Click here to start</a></p>
+                    <button type="button" onclick="closePopup()">OK</button>
+                </div>
+
+            </form>
+
+            <p class="login">Don't have an account? <a href="forum2_revisi.html">Sign Up</a></p>
+
+            <script>
+                const popup = document.getElementById("popup");
+
+                function openPopup() {
+                    const email = document.getElementById("email-input").value.trim();
+                    const password = document.getElementById("password-input").value.trim();
+
+                    if (!email || !password) {
+                        alert("Fill out all fields before submitting!");
+                    } else if (password.length < 8) {
+                        alert("At least 8 characters long!");
+                    } else {
+                        popup.classList.add("open-popup");
+                        document.getElementById("form").reset();
+                    }
+                }
+
+                function closePopup() {
+                    popup.classList.remove("open-popup");
+                    document.getElementById("form").reset();
+                }
+            </script>
+</body>
+
+</html>

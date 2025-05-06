@@ -1,0 +1,80 @@
+/* responsive_forum1.css */
+
+@media (max-width: 1080px) {
+    .judul h2 {
+        font-size: 30px;
+    }
+    .form {
+        width: 250px;
+        padding: 50px;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    .input-box input {
+        font-size: 11px;
+    }
+    .input-box label {
+        font-size: 15px;
+    }
+    .input-box input::placeholder {
+        font-size: 9px;
+    }
+    a.register {
+        font-size: medium;
+    }
+    #submit {
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .popup {
+        width: 300px;
+    }
+    .popup h2 {
+        font-size: 35px;
+    }
+    .popup h4 {
+        font-size: 25px;
+        font-weight: 300;
+    }
+}
+
+@media (max-width: 450px) {
+    .judul h2 {
+        font-size: 25px;
+    }
+    .form {
+        width: 200px;
+        padding: 30px;
+    }
+    h3 {
+        font-size: 15px;
+    }
+    .input-box input {
+        font-size: 6px;
+    }
+    .input-box label {
+        font-size: 10px;
+    }
+    .input-box input::placeholder {
+        font-size: 4px;
+    }
+    a.register {
+        font-size: small;
+    }
+    #submit {
+        font-size: 8px;
+        font-weight: 200;
+    }
+    .popup {
+        width: 250px;
+    }
+    .popup h2 {
+        font-size: 30px;
+    }
+    .popup h4 {
+        font-size: 20px;
+        font-weight: 100;
+    }
+}
+
