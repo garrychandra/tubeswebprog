@@ -45,6 +45,7 @@
             </li>
             <li><a href="../html/forum1.html">FORUM</a></li>
             <li><a href="updates.html">UPDATES</a></li>
+            <li><a href="">PROFILE</a></li>
         </ul>
     </nav>
 
@@ -59,7 +60,7 @@
             <p id="error-message"></p>
             <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
 
-            <form id="form" action="">
+            <form id="form" action="../php/forum1.php" method="POST">
                 <h3>Log In</h3>
                 <div>
                     <label for="email">Email</label>
@@ -72,7 +73,7 @@
                         required>
                 </div>
 
-                <button type="submit" class="btn" onclick="openPopup()">Log In</button>
+                <button type="submit" class="btn">Log In</button>
 
                 <div class="popup" id="popup">
                     <h2>Congratulations!</h2>
