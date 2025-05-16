@@ -13,13 +13,13 @@
 
     <nav>
         <ul>
-            <li ><a href="../html/home.html">HOME</a></li>
-            <li ><a href="../html/members.html">MEMBERS</a></li>
-            <li id="discography"><a href="../html/discography.html">DISCOGRAPHY</a>
+            <li ><a href="../../html/home.html">HOME</a></li>
+            <li ><a href="../../html/members.html">MEMBERS</a></li>
+            <li id="discography"><a href="../../html/discography.html">DISCOGRAPHY</a>
                 <div id="discography-dropdown-content">
-                    <a href="../html/discography.html#card_1">Singles</a>
-                    <a href="../html/discography.html#card_2">EPs</a>
-                    <a href="../html/discography.html#card_3">Albums</a>
+                    <a href="../../html/discography.html#card_1">Singles</a>
+                    <a href="../../html/discography.html#card_2">EPs</a>
+                    <a href="../../html/discography.html#card_3">Albums</a>
                 </div>
             </li>
             <li><a href="../html/forum1.html">FORUM</a></li>
