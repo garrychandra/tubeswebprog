@@ -6,8 +6,8 @@ $result = mysqli_query($con,$sql);
 
 while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
     //link to forum here
+    echo "<a href='isiforum.php?forum_id=".$row['forum_id']."'>" . $row['name'] . "<br>";
 }
 
 mysqli_close($con);
-"SELECT attachment FROM attachment WHERE post_id IN (select post_id FROM forum_posting WHERE user_id = $id)";
 ?>
