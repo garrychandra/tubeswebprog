@@ -22,7 +22,7 @@
                     <a href="../../html/discography.html#card_3">Albums</a>
                 </div>
             </li>
-            <li><a href="../html/forum1.html">FORUM</a></li>
+            <li><a href="html/tesforum.php">FORUM</a></li>
             <li><a href="updates.html">UPDATES</a></li>
             <li><a href="">PROFILE</a></li>
         </ul>

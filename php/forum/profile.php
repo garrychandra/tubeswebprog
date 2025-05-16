@@ -39,9 +39,9 @@
     echo "<br>";
     echo "Posts : $posting";
     echo "<br>";
-    echo "Followers : $followers";
+    echo "Followers : <span id='followers'>" . $followers ."</span>";
     echo "<br>";
-    echo "Following : $following";
+    echo "Following : $following<br>";
 
     // query attachment (postingan), kyk master query
     $result = mysqli_query($con, "SELECT attachment FROM attachment WHERE post_id IN (SELECT post_id FROM forum_posting WHERE user_id = '$id')");
@@ -58,7 +58,37 @@
         }
     }
     
+    if(isset($_SESSION["id"])){
+        $result = mysqli_query($con, "SELECT * FROM follow WHERE user_id = '$sesid' && id_follow = '$id'");
+        if (mysqli_num_rows($result) == 0){
+            echo "<button id='follow' value='" . $id . "' onClick='follow(this.value)'>Follow</button>";
+        } else {
+            echo "<button id='follow' value='" . $id . "' onClick='unfollow(this.value)'>Unfollow</button>";
+        }
+    }
     //tambah follow ajax
+    echo "<script>
+        function follow(str) {
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById('followers').innerHTML=this.responseText;
+            }
+        }
+        xmlhttp.open('GET','follow.php',true);
+        xmlhttp.send(id='$id'&follow=1);
+        }
 
-    
+        function unfollow(str) {
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                document.getElementById('followers').innerHTML=this.responseText;
+            }
+        }
+        xmlhttp.open('GET','follow.php',true);
+        xmlhttp.send(id='$id'&follow=0);
+        }
+
+    </script>";
 ?>
