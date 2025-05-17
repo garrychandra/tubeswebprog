@@ -3,7 +3,7 @@
     $username = "root";
     $password = "";
     $dbname = "wte";
-    $port = "3307";
+    $port = "3306";
 
     $con = mysqli_connect($servername,$username,$password,$dbname, $port);
     if(!$con){
