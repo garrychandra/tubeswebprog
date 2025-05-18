@@ -17,6 +17,7 @@
         echo "<script> alert('Login error'); </script>";
     } else {
         $_SESSION['id'] = mysqli_fetch_array($result)['id'];
+        $_SESSION['role'] = mysqli_fetch_array($result)['role'];
     }
 
     header("Location: ../html/profile.php");
