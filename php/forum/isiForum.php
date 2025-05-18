@@ -45,6 +45,20 @@
             flex-wrap: wrap;
         }
 
+        .attachment-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center image & button */
+            margin: 10px;
+            width: fit-content;
+            text-align: center;
+        }
+
+        .delete-attachment {
+            margin-top: 5px;
+        }
+
+
         .post-actions {
             margin-top: 10px;
             display: flex;
@@ -126,6 +140,8 @@
 
                         html += `</div>
                     <br>
+                    <label>Add more attachments:</label>
+                    <input type='file' name='new_attachments[]' id='new_attachments_${post_id}' multiple><br><br>
                     <button type='button' class='save-edit' data-post-id='${post_id}'>Save</button>
                     <button type='button' class='cancel-edit' data-post-id='${post_id}'>Cancel</button>
                 `;
@@ -139,14 +155,22 @@
             $(document).on('click', '.save-edit', function () {
                 var post_id = $(this).data('post-id');
                 var new_content = $('#edit_content_' + post_id).val();
+                var files = $('#new_attachments_' + post_id)[0].files;
+
+                var formData = new FormData();
+                formData.append('post_id', post_id);
+                formData.append('content', new_content);
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('new_attachments[]', files[i]);
+                }
 
                 $.ajax({
                     url: 'editPost.php',
                     type: 'POST',
-                    data: {
-                        post_id: post_id,
-                        content: new_content
-                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function (response) {
                         $('#content_' + post_id).html(response); // Assume response is the updated HTML
                     }
@@ -237,10 +261,12 @@
             $admin = true;
         }
     }
-    $id = 0;
+    
+    
     if(isset($_SESSION['id'])){
         $id = $_SESSION['id'];
     }
+
 
     $sql = "SELECT * FROM forum_posting fp LEFT JOIN forum f ON fp.forum_id = f.forum_id 
                     LEFT JOIN user u ON fp.user_id = u.id 

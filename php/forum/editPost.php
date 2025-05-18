@@ -6,11 +6,25 @@ $admin = false;
 if (isset($_SESSION['admin'])) {
     $admin = $_SESSION['admin'];
 }
-date_default_timezone_set('Asia/Jakarta');
-$date = date('d-m-Y H:i:s', time());
+
 $post_id = $_POST['post_id'];
 $content = mysqli_real_escape_string($con, $_POST['content']);
 $sql = "UPDATE forum_posting SET content = '$content' WHERE post_id = $post_id";
+
+// Handle new attachments if any
+if (!empty($_FILES['new_attachments']['name'][0])) {
+    $uploadDir = 'upload/';
+    foreach ($_FILES['new_attachments']['tmp_name'] as $key => $tmp_name) {
+        $fileName = basename($_FILES['new_attachments']['name'][$key]);
+        $targetPath = $uploadDir . time() . "_" . $fileName;
+        if (move_uploaded_file($tmp_name, $targetPath)) {
+            $escapedPath = mysqli_real_escape_string($con, $targetPath);
+            $insert_sql = "INSERT INTO attachment (post_id, attachment) VALUES ($post_id, '$escapedPath')";
+            mysqli_query($con, $insert_sql);
+        }
+    }
+}
+
 if(mysqli_query($con, $sql)){
     $sql = "SELECT * FROM forum_posting fp LEFT JOIN forum f ON fp.forum_id = f.forum_id 
                     LEFT JOIN user u ON fp.user_id = u.id 
