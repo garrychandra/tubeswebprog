@@ -2,8 +2,9 @@
 <html lang="en">
 <?php
     session_start();
+    $_SESSION['id'] = 2;
 ?>
-<head>
+<>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -182,6 +183,41 @@
         });
     </script>
 
+    <script>
+        //follow button
+        $(document).on('click', '.follow-btn', function() {
+    var btn = $(this);
+    var userId = btn.data('user-id');
+    var follow = btn.data('follow'); // 1 = follow, 0 = unfollow
+    
+    $.ajax({
+        url: 'follow.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id_follow: userId,
+            follow: follow
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                if (follow == '1') {
+                    btn.text('Unfollow');
+                    btn.data('follow', '0');
+                } else {
+                    btn.text('Follow');
+                    btn.data('follow', '1');
+                }
+            } else {
+                alert('Failed to update follow status.');
+            }
+        },
+        error: function() {
+            alert('AJAX request failed.');
+        }
+    });
+});
+    </script>
+
 </head>
 
 <body>
@@ -202,7 +238,7 @@
             $admin = true;
         }
     }
-    $id = 1;
+    $id = 0;
     if(isset($_SESSION['id'])){
         $id = $_SESSION['id'];
     }
@@ -227,11 +263,11 @@
         if (isset($_SESSION['id']) && $_SESSION['id'] != $row['user_id']) {
             $sql = "SELECT * FROM follow WHERE user_id = " . $_SESSION['id'] . " AND id_follow = " . $row['id'];
             $result2 = mysqli_query($con, $sql);
-            //ubah jadi ajax kalo sempet
-            if (mysqli_num_rows($result2) > 0) {
-                echo "<a href='follow.php?id=" . $row['id'] . "&follow=0'>Unfollow</a>";
+            //follow button
+            if(mysqli_num_rows($result2) > 0){
+                echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='0'>Unfollow</button>";
             } else {
-                echo "<a href='follow.php?id=" . $row['id'] . "&follow=1'>Follow</a>";
+                echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='1'>Follow</button>";
             }
         }
         echo "</div>";
