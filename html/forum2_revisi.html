@@ -60,13 +60,13 @@
             <p id="error-message"></p>
             <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
 
-            <form id="form" action="post" method="post">
+            <form id="form" action="../php/signup.php" method="post">
 
                 <h3>Sign Up</h3>
 
                 <div>
                     <label for="username">User Name</label>
-                    <input type="text" name="username" id="fullname-input" placeholder="Input your user name!" required>
+                    <input type="text" name="username" id="username-input" placeholder="Input your user name!" required>
                 </div>
 
                 <div>
@@ -80,7 +80,7 @@
                         required>
                 </div>
 
-                <button type="submit" class="btn" onclick="openPopup()">Sign Up</button>
+                <button type="submit" class="btn">Sign Up</button>
 
                 <div class="popup" id="popup">
                     <h2>Congratulations!</h2>
