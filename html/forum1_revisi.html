@@ -81,7 +81,6 @@
                     <p><a href="forum3" href="forum3.html">Click here to start</a></p>
                     <button type="button" onclick="closePopup()">OK</button>
                 </div>
-
             </form>
 
             <p class="login">Don't have an account? <a href="forum2_revisi.html">Sign Up</a></p>
@@ -92,7 +91,7 @@
                 function openPopup() {
                     const email = document.getElementById("email-input").value.trim();
                     const password = document.getElementById("password-input").value.trim();
-
+                    
                     if (!email || !password) {
                         alert("Fill out all fields before submitting!");
                     } else if (password.length < 8) {
@@ -108,6 +107,8 @@
                     document.getElementById("form").reset();
                 }
             </script>
+        </div>
+    </div>
 </body>
 
 </html>

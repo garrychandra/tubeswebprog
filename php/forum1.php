@@ -15,6 +15,8 @@
 
     if (mysqli_num_rows($result) == 0) {
         echo "<script> alert('Login error'); </script>";
+        $warning = "Email ";
+
     } else {
         $_SESSION['id'] = mysqli_fetch_array($result)['id'];
         $_SESSION['role'] = mysqli_fetch_array($result)['role'];
