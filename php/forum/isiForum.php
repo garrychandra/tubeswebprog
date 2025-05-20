@@ -261,11 +261,12 @@
             $admin = true;
         }
     }
-    
-    
+   
+
     if(isset($_SESSION['id'])){
         $id = $_SESSION['id'];
     }
+
 
 
     $sql = "SELECT * FROM forum_posting fp LEFT JOIN forum f ON fp.forum_id = f.forum_id 
@@ -333,7 +334,7 @@
 //if user is logged in, show reply form
     if (isset($_SESSION['id'])) {
         echo "<h2 style='text-align:left;color:white;'>Reply</h2>";
-        echo "<form action='replyForum.php' method='post'>";
+        echo "<form action='replyForum.php' method='post' enctype='multipart/form-data'>";
         echo "<input type='hidden' name='user_id' value='" . $_SESSION['id'] . "'>";
         echo "<input type='hidden' name='forum_id' value='" . $forum_id . "'>";
         echo "<textarea name='msg' rows='5' cols='50'></textarea><br>";
