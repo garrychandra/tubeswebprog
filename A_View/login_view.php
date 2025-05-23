@@ -9,12 +9,11 @@
         <p id="error-message"></p>
         <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
 
-        <form id="form" action="../php/forum1.php" method="POST">
+        <form id="form" action="../A_Controller/login_controller.php" method="POST">
             <h3>Log In</h3>
             <div>
-                
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email-input" placeholder="Input your e-mail!" required>
+                <label for="email">Email or Username</label>
+                <input type="text" name="email" id="email-input" placeholder="Input your e-mail!" required>
             </div>
 
             <div>
@@ -22,19 +21,19 @@
                 <input type="password" name="password" id="password-input" placeholder="Input your password!" required>
             </div>
 
-            <button type="submit" class="btn">Log In</button>
+            <button type="submit" class="btn" name="log-btn">Log In</button>
 
-            <div class="popup" id="popup">
+            <!-- <div class="popup" id="popup">
                 <h2>Congratulations!</h2>
                 <p>You have successfully signed up</p>
                 <p><a href="forum3" href="forum3.html">Click here to start</a></p>
-                <button type="button" onclick="closePopup()">OK</button>
-            </div>
+                <button type="button" onclick="closePopup()" value="login-btn">OK</button>
+            </div> -->
         </form>
 
-        <p class="login">Don't have an account? <a href="forum2_revisi.html">Sign Up</a></p>
+        <p class="login">Don't have an account? <a href="main.php?page=signup1">Sign Up</a></p>
 
-        <script>
+        <!-- <script>
             const popup = document.getElementById("popup");
 
             function openPopup() {
@@ -55,7 +54,6 @@
                 popup.classList.remove("open-popup");
                 document.getElementById("form").reset();
             }
-        </script>
+        </script> -->
     </div>
 </div>
-

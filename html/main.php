@@ -11,18 +11,26 @@
     <link rel="stylesheet" href="../css/responsive-navbar.css">
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
+    
+    <link rel="stylesheet" href="../css/members.css">
+    <link rel="stylesheet" href="../css/responsive_member.css">
+    
+    
+    <link rel="stylesheet" href="../css/discography.css">
+    <link rel="stylesheet" href="../css/responsive-discography.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
 </head>
 
 <body>
     <?php
-    echo "DEBUG";
     include 'header.php';
 
     $page = $_GET['page'] ?? 'home';
 
     switch($page){
         case "members":
-            include 'members.html';
+            include 'members_view.html';
             break;
         case "discography";
             include 'discography.html';
@@ -37,13 +45,9 @@
             include 'login_view.php';
         break;
 
-        case "signup";
-            include '';
-        case "sign"
-
-
+        
         default: 
-            include 'home2.html';
+            include 'home_view.html';
     }
 
     include 'footer.html';

@@ -1,0 +1,199 @@
+<main>
+    <div id="about">
+
+        <div id="top">
+            <div class="top-content" id="top-left">
+                <div id="members-text">
+                    <span>
+                        <h1>MEMBERS</h1>
+                    </span>
+                </div>
+                <div class="top-left-content" id="john-cha">
+                    <a href="../html/members.html#slide2">
+                        <div class="member-name">
+                            <h1>John Cha</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class="top-left-content" id="kim-daniel">
+                    <div class="member-name">
+                        <h1>Kim Daniel</h1>
+                    </div>
+                </div>
+                <div class="top-left-content" id="shin-donggyu">
+                    <div class="member-name">
+                        <h1>Shin Donggyu</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-content" id="top-right">
+
+            </div>
+        </div>
+
+        <div id="center">
+            <div class="center-content" id="center-left">
+            </div>
+
+            <div class="center-content" id="center-center">
+
+                <h1>About Wave to Earth</h1>
+
+                <p>Wave to Earth is an indie rock band from South Korea, consisting of three members : Daniel Kim as
+                    guitarist and vocalist, Shin Donggyu as drummer, and John Cha as bassist. Formed in 2019, they
+                    have released some singles, EPs, and albums as you can see in the <a
+                        href="../html/discography.html">discography page</a>.
+
+                    <br><br>At first, when Daniel Kim and Shin Donggyu were in middle school, they started this band
+                    with the intention of creating songs that would bring "a new wave". And then, they officially
+                    debuted on August 23, 2019 including the new member, John Cha.
+
+                    <br><br>Although based in South Korea, most of Wave to Earth's songs are written in English.
+                    They aim to expand their reach and connect not only with Koreans, but also with global
+                    listeners.
+
+                    <br><br>If you're new to Wave to Earth, this is the perfect time to become part of their fan.
+                    Let's <a href="../html/forum1.html">connect with others</a> and give your support for this
+                    extraordinary band!
+                </p>
+            </div>
+
+            <div class="center-content" id="center-right">
+
+            </div>
+        </div>
+
+        <div id="bottom">
+            <div class="bottom-content" id="bottom-left">
+            </div>
+
+            <div class="bottom-content" id="bottom-right">
+                <h1>Discography</h1>
+                <div id="cards">
+                    <ul class="cards">
+                        <li>
+                            <img draggable="false" src="../images/w2e _wave_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_light_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_wave_ep_cover.jpg" width="1200" height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_surf_single_cover.jpg" width="1200" height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_summer-flows_ep_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_pueblo_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_daisy_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_nouvelle-vague_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_calla_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_dried-flower_single_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_flaws-and-all_album_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                        <li>
+                            <img draggable="false" src="../images/w2e_play-with-earth_album_cover.jpg" width="1200"
+                                height="1200">
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="../html/discography.html">
+                    <h1>Explore</h1>
+                </a>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+
+    <script type="module">
+        if (typeof ScrollTimeline !== 'undefined') {
+            document.querySelectorAll('.cards li').forEach($li => {
+
+                const timeline = new ViewTimeline({
+                    subject: $li,
+                    axis: 'inline',
+                });
+
+                $li.animate({
+                    zIndex: [1, 100, 1],
+                }, {
+                    fill: 'both',
+                    timeline,
+                });
+
+                const $img = $li.querySelector(':scope > img');
+
+                $img.animate([
+                    { transform: 'translateX(-100%) rotateY(-45deg)', offset: 0.0 },
+                    { transform: 'translateX(0) rotateY(-45deg)', offset: 0.35 },
+                    { transform: 'rotateY(0deg) translateZ(1em) scale(1.5)', offset: 0.50 },
+                    { transform: 'translateX(0) rotateY(45deg)', offset: 0.65 },
+                    { transform: 'translateX(100%) rotateY(45deg)', offset: 1.00 },
+                ], {
+                    fill: 'both',
+                    timeline,
+                });
+
+            });
+
+        }
+
+        const slider = document.querySelector(".cards");
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener("pointerdown", (e) => {
+            isDown = true;
+            slider.classList.add("active");
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener("pointerleave", () => {
+            isDown = false;
+            slider.classList.remove("active");
+        });
+        slider.addEventListener("pointerup", () => {
+            isDown = false;
+            slider.classList.remove("active");
+        });
+        slider.addEventListener("pointermove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3; //scroll-fast
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../script/home.js"></script>
