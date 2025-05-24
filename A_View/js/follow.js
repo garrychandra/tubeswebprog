@@ -1,4 +1,5 @@
-$(document).on('click', '.follow-btn', function() {
+$(document).ready(function () {
+    $(document).on('click', '.follow-btn', function() {
     var btn = $(this);
     var userId = btn.data('user-id');
     var follow = btn.data('follow'); // 1 = follow, 0 = unfollow
@@ -27,5 +28,6 @@ $(document).on('click', '.follow-btn', function() {
         error: function() {
             alert('AJAX request failed.');
         }
+    });
     });
 });

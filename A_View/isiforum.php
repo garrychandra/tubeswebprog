@@ -9,7 +9,7 @@ if (!isset($_GET['forum_id'])) {
 $forum_id = (int)($_GET['forum_id'] ?? 0); // Cast to int for safety
 $forum_name = $_GET['name'];
 echo "<h1 style='text-align:left;color:white;'>$forum_name</h1>";
-$admin = true;
+$admin = false;
 if (isset($_SESSION['is_admin'])) {
     if ($_SESSION['is_admin'] == 'admin') {
         $admin = true;
@@ -34,7 +34,8 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     echo "<div class='forum-post' id='post_" . $row['post_id'] . "'>";
     echo "<div class='user-info'>";
     echo "<img src='upload/" . $row['profilepic'] . "' alt='User Image' class='user-image'><br>";
-    echo "<a href='profile.php?id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
+    
+    echo "<a href='main.php?page=profile&id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
     echo $row['date_posted'];
     echo "<br>";
     if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $row['user_id']) {

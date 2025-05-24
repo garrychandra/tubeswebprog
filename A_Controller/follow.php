@@ -3,7 +3,7 @@
     $follow = $_POST['follow'];
 
     session_start();
-    $uid = $_SESSION['id'];
+    $uid = $_SESSION['user_id'];
     include_once "../A_Model/config.php";  
     $sql;
     if($follow == '1'){

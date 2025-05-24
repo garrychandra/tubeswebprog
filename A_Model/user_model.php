@@ -24,7 +24,7 @@ function get_user_by_email_password($email_or_username, $password)
 }
 
 // SIGN UP
-function insert_user($email, $password, $username, $profilepic, $role)
+function insert_user($email, $password, $username, $profilepic, $role, $bio)
 {
     global $con;
     $email = escape($email);
@@ -32,9 +32,10 @@ function insert_user($email, $password, $username, $profilepic, $role)
     $username = escape($username);
     $profilepic = escape($profilepic);
     $role = escape($role);
+    $bio = escape($bio);
 
-    $sql = "INSERT INTO user (email, password, username, profilepic, role)
-            VALUES ('$email', '$password', '$username', '$profilepic', '$role')";
+    $sql = "INSERT INTO user (email, password, username, profilepic, role,bio)
+            VALUES ('$email', '$password', '$username', '$profilepic', '$role','$bio')";
 
     return mysqli_query($con, $sql);
 }

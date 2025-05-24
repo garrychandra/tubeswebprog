@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup2-btn'])) {
     $pass = $_SESSION['signup_password'];
     $username = trim($_POST['username']);
     $bio = trim($_POST['bio']);
-    $profile_pic = 'default.png';
+    $profile_pic = $_FILES['profile_pic'] ?? null;
 
-    if (isset($_FILES['profile_pic']) && $_POST['profile_pic']['error'] === 0) {
-        $target = "../uploads/";
+    if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === 0) {
+        $target = "../images/upload/";
         if (!is_dir($target)) {
             mkdir($target);
         }
@@ -25,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup2-btn'])) {
         $destination = $target . $filename;
 
         if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $destination)) {
-            $profile_pic = $filename;
+            $profile_pic = $filename; // Store only the filename
         }
     }
 
-    if (insert_user($email, $pass, $username, $profile_pic, $bio)) {
+    if (insert_user($email, $pass, $username, $profile_pic, "member", $bio)) {
         unset($_SESSION['signup_email'], $_SESSION['signup_password']);
         $user = get_user_by_email($email);
 
