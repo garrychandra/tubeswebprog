@@ -19,6 +19,8 @@
         
         <?php if(empty($_SESSION['user_id'])): ?>
         <li><a href="main.php?page=login">LOGIN</a></li>
+        <?php else: ?>
+        <li><a href="main.php?page=logout">LOGOUT</a></li>
         <?php endif; ?>
 
         <?php if (!empty($_SESSION['user_id'])): ?>

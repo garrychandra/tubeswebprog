@@ -1,5 +1,4 @@
 <?php 
-    session_start();
 
     require_once '../A_Model/user_model.php';
 

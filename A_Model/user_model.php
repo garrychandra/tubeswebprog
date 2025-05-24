@@ -7,14 +7,14 @@ function escape($input)
     return mysqli_real_escape_string($con, $input);
 }
 
-//SIGN IN
-function get_user_by_email_password($email, $password)
+// SIGN IN
+function get_user_by_email_password($email_or_username, $password)
 {
     global $con;
-    $email = escape($email);
+    $input = escape($email_or_username);
     $password = escape($password);
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM user WHERE (email = '$input' OR username = '$input') AND password = '$password'";
     $result = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($result) === 1) {
@@ -23,19 +23,18 @@ function get_user_by_email_password($email, $password)
     return false;
 }
 
-//SIGN UP
-function insert_user($email, $password, $username, $profile_pic, $bio)
+// SIGN UP
+function insert_user($email, $password, $username, $profilepic, $role)
 {
-
     global $con;
     $email = escape($email);
     $password = escape($password);
     $username = escape($username);
-    $profile_pic = escape($profile_pic);
-    $bio = escape($bio);
+    $profilepic = escape($profilepic);
+    $role = escape($role);
 
-    $sql = "INSERT INTO users (email, password, username, profile_pic, bio)
-    VALUES ('$email', '$password', '$username', '$profile_pic', '$bio')";
+    $sql = "INSERT INTO user (email, password, username, profilepic, role)
+            VALUES ('$email', '$password', '$username', '$profilepic', '$role')";
 
     return mysqli_query($con, $sql);
 }
@@ -44,87 +43,82 @@ function get_user_by_email($email)
 {
     global $con;
     $email = escape($email);
-    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $sql = "SELECT * FROM user WHERE email = '$email'";
     $result = mysqli_query($con, $sql);
     return mysqli_fetch_assoc($result);
 }
 
-//Profile
+// Profile
 function get_user_by_id($id)
 {
     global $con;
     $id = (int)($id);
-    $sql = "SELECT * FROM users WHERE id = $id";
+    $sql = "SELECT * FROM user WHERE id = $id";
     $result = mysqli_query($con, $sql);
     return mysqli_fetch_assoc($result);
 }
 
+// Followers count
 function get_followers_count($id)
 {
     global $con;
     $id = (int)$id;
-    $sql = "SELECT COUNT(*) as total FROM follows WHERE followed_id = $id";
+    $sql = "SELECT COUNT(*) as total FROM follow WHERE id_follow = $id";
     $result = mysqli_query($con, $sql);
     return mysqli_fetch_assoc($result)['total'];
 }
 
+// Following count
 function get_following_count($id)
 {
     global $con;
     $id = (int)$id;
-    $sql = "SELECT COUNT(*) as total FROM follows WHERE follower_id = $id";
+    $sql = "SELECT COUNT(*) as total FROM follow WHERE user_id = $id";
     $result = mysqli_query($con, $sql);
     return mysqli_fetch_assoc($result)['total'];
 }
 
-//Edit Profile
-
-function update_user_profile($id, $username, $bio, $profile_pic){
+// Edit Profile
+function update_user_profile($id, $username, $profilepic, $role){
     global $con;
     $id = (int)$id;
     $username = escape($username);
-    $bio = escape($bio);
-    $profile_pic = escape($profile_pic);
+    $profilepic = escape($profilepic);
+    $role = escape($role);
 
-    if ($profile_pic !== null) {
-        $profile_pic = escape($profile_pic);
-        $sql = "UPDATE users SET username='$username', bio='$bio', profile_pic='$profile_pic' WHERE id=$id";
-    } else {
-        $sql = "UPDATE users SET username='$username', bio='$bio'";
-    }
-
+    $sql = "UPDATE user SET username='$username', profilepic='$profilepic', role='$role' WHERE id=$id";
     return mysqli_query($con, $sql);
 }
 
-// User and Followers
-function is_following($follower_id, $followed_id)
+// Check if following
+function is_following($user_id, $id_follow)
 {
     global $con;
-    $sql = "SELECT 1 FROM follows WHERE follower_id = $follower_id AND followed_id= $followed_id";
+    $user_id = (int)$user_id;
+    $id_follow = (int)$id_follow;
+    $sql = "SELECT 1 FROM follow WHERE user_id = $user_id AND id_follow = $id_follow";
     $check = mysqli_query($con, $sql);
     return mysqli_num_rows($check) > 0;
 }
 
-//Follow
-function get_followers($user_id, $search = ''){
+// Get followers
+function get_followers($user_id){
     global $con;
     $user_id = (int)$user_id;
-
-    $search_sql = $search ? " AND users.username LIKE '%". escape($search). "%'" : '';
     $sql = "
-    SELECT u.id, u.username, u.profile_pic FROM follows AS f
-    JOIN users AS u ON f.follower_id = u.id
-    WHERE f.followed_id = $user_id $search_sql";
+    SELECT u.id, u.username, u.profilepic FROM follow AS f
+    JOIN user AS u ON f.user_id = u.id
+    WHERE f.id_follow = $user_id";
     return mysqli_query($con, $sql);
 }
 
-function get_following($user_id, $search = ''){
+// Get following
+function get_following($user_id){
     global $con;
     $user_id = (int)$user_id;
-    $search_sql = $search ? " AND u.username LIKE '%" .escape($search) . "%'" : '';
     $sql = "
-    SELECT u.id, u.username, u.profile_pic FROM follows AS f
-    JOIN users AS u ON f.followed_id = u.id
-    WHERE f.follower_id = $user_id $search_sql";
+    SELECT u.id, u.username, u.profilepic FROM follow AS f
+    JOIN user AS u ON f.id_follow = u.id
+    WHERE f.user_id = $user_id";
     return mysqli_query($con, $sql);
 }

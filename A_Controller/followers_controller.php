@@ -23,7 +23,7 @@ $user_q = mysqli_query($con, $sql);
 if(mysqli_num_rows($user_q) !== 1) die("User not found.");
 $user_data = mysqli_fetch_assoc($user_q);
 
-$result = ($type === 'followers') ? get_followers($target_id, $search) : get_following($target_id, $search);
+$result = ($type === 'followers') ? get_followers($target_id) : get_following($target_id);
 
 $logged_in_user = $_SESSION['user_id'] ?? null;
 

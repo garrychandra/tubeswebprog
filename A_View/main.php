@@ -67,8 +67,11 @@ session_start();
         case "login";
             include 'login_view.php';
             break;
-        case "isiForum":
-            include 'isiForum.php';
+        case "logout";
+            include 'logout_view.php';
+            break;
+        case "isiforum":
+            include 'isiforum.php';
             break;
         case "signup1":
             include 'signup1_view.php';
