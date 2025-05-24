@@ -15,6 +15,7 @@ session_start();
     <link rel="stylesheet" href="../css/responsive-navbar.css">
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
+    <link rel="stylesheet" href="css/isiforum.css">
 
     <link rel="stylesheet" href="../css/members.css">
     <link rel="stylesheet" href="../css/responsive_member.css">
@@ -31,6 +32,13 @@ session_start();
             color: white;
         }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/deletepost.js"></script>
+    <script src="js/editpost.js"></script>
+    <script src="js/follow.js"></script>
+    <script src="js/createforum.js"></script>
 </head>
 
 <body>

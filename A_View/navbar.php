@@ -24,7 +24,7 @@
         <?php endif; ?>
 
         <?php if (!empty($_SESSION['user_id'])): ?>
-            <?php if ($_SESSION['is_admin']): ?>
+            <?php if ($_SESSION['is_admin'] == 'admin'): ?>
                 <li><a href="">ADMIN</a></li>    
             <?php endif; ?>
             <li><a href="main.php?page=profile">PROFILE</a></li>

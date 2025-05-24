@@ -1,5 +1,4 @@
 <?php require '../A_Model/user_model.php'; ?>
-<?php session_start(); ?>
 
 <h2>Are you sure you want to log out?</h2>
 
