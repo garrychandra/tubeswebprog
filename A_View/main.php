@@ -59,13 +59,16 @@ session_start();
             echo "<script>location.hash = '#card_3';</script>"; // Scroll to the element
             break;
         case "forum":
-            include 'forum1_revisi.html';
+            include 'showforums.php';
             break;
         case "updates":
             include 'updates_view.html';
             break;
         case "login";
             include 'login_view.php';
+            break;
+        case "isiForum":
+            include 'isiForum.php';
             break;
         case "signup1":
             include 'signup1_view.php';

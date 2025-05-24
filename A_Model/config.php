@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "forum_project";
+    $dbname = "wte";
     $port = "3306";
 
     $con = mysqli_connect($servername,$username,$password,$dbname, $port);
