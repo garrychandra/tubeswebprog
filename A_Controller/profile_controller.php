@@ -1,6 +1,5 @@
 <?php 
-    session_start();
-
+    require_once '../A_Model/config.php';
     require_once '../A_Model/user_model.php';
 
     $logged_in = isset($_SESSION['user_id']);
@@ -11,12 +10,14 @@
     }elseif ($logged_in){
         $profile_id = (int)$_SESSION['user_id']; // user see his own
     }else {
-        die("You must be logged in");
+        header("Location: ../A_View/main.php?page=login");
+        exit();
     }
 
     $user = get_user_by_id($profile_id);
     if(!$user){
-        die('User not found.');
+        header("Location: ../A_View/main.php?page=404_not_found");
+        exit();
     }
 
     $is_own_profile = $logged_in && $_SESSION['user_id'] == $profile_id; 

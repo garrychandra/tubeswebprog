@@ -1,15 +1,14 @@
+/* A_View/css/profile.css (Kode yang sudah ada di atas) */
 .profile-container {
   max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
-
 .profile-header {
   display: flex;
   align-items: center;
   padding: 20px;
 }
-
 .profile-pic {
   width: 120px;
   height: 120px;
@@ -18,26 +17,21 @@
   margin-right: 30px;
   border: 2px solid #ddd;
 }
-
 .profile-info h2 {
   margin: 0;
   font-size: 24px;
 }
-
 .stats {
   display: flex;
   gap: 20px;
   margin: 10px 0;
 }
-
 .stats span {
   font-size: 14px;
 }
-
 .bio {
   margin: 10px 0;
 }
-
 .edit-button {
   padding: 6px 12px;
   background-color: #efefef;
@@ -46,17 +40,285 @@
   text-decoration: none;
   color: #333;
 }
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   margin-top: 20px;
 }
-
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* --- TAMBAHKAN KODE CSS DI BAWAH INI KE FILE profile.css KAMU --- */
+
+/* Override atau penambahan untuk .profile-container agar ada padding dan shadow */
+.profile-container {
+    padding: 30px; /* Tambahkan padding */
+    background-color: #2a2a2a; /* Warna latar belakang kontainer profil */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Efek bayangan */
+    text-align: center; /* Memusatkan konten utama */
+    margin: 50px auto; /* Memberi jarak atas bawah dan tengah secara horizontal */
+}
+
+/* Styles for elements within the profile container */
+.profile-container h2 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.profile-container strong[style="color:red"] {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Mengganti .profile-pic (jika kamu ingin style baru mengoverride) */
+.profile-container img { /* Selector yang lebih spesifik untuk img di dalam profile-container */
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    margin: 20px auto; /* Tengah dan beri jarak */
+    display: block;
+}
+
+.profile-info p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #ddd; /* Pastikan teks terlihat di latar belakang gelap */
+}
+
+.profile-info strong {
+    color: #bbb;
+}
+
+/* --- Profile Action Buttons (Edit Profile, Logout, Follow/Unfollow) --- */
+.profile-actions { /* Wrapper untuk tombol aksi */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-actions a,
+.profile-actions button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-actions a { /* Style untuk Edit Profile Link */
+    background-color: #007bff; /* Biru */
+    color: white;
+}
+
+.profile-actions a:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.profile-actions form { /* Untuk form logout/follow/unfollow */
+    display: inline-block; /* Agar tombolnya bisa sejajar */
+}
+
+.profile-actions form button { /* Style untuk Logout dan Follow/Unfollow Buttons */
+    background-color: #dc3545; /* Merah untuk logout */
+    color: white;
+}
+
+.profile-actions form button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.profile-actions form button[name="follow_btn"] {
+    background-color: #28a745; /* Hijau untuk Follow */
+}
+
+.profile-actions form button[name="follow_btn"]:hover {
+    background-color: #218838;
+}
+
+.profile-actions form button[name="unfollow_btn"] {
+    background-color: #ffc107; /* Kuning untuk Unfollow */
+    color: #333; /* Warna teks gelap */
+}
+
+.profile-actions form button[name="unfollow_btn"]:hover {
+    background-color: #e0a800;
+}
+
+/* --- Followers/Following Links --- */
+.followers-following-links {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.followers-following-links p { /* Menambahkan gaya untuk p di dalam followers-following-links */
+    margin: 0;
+}
+
+.followers-following-links a {
+    color: #00bcd4; /* Warna aqua untuk link */
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.followers-following-links a:hover {
+    color: #008fa0;
+    text-decoration: underline;
+}
+
+
+/* edit profile */
+.edit-profile-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.edit-profile-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: 2.2em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #bbb;
+    font-size: 1.05em;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: calc(100% - 20px); 
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    color: #bbb;
+}
+
+.profile-pic-preview {
+    display: block;
+    margin: 10px auto 20px auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+    font-size: 0.9em;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.05em;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-container, .edit-profile-container {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+    .profile-container h2 {
+        font-size: 2em;
+    }
+    .profile-info p {
+        font-size: 1em;
+    }
+    .profile-actions a,
+    .profile-actions button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        margin: 5px;
+    }
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group input[type="file"] {
+        padding: 10px;
+    }
+    .btn-submit {
+        padding: 10px;
+        font-size: 1em;
+    }
 }

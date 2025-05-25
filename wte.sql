@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2025 at 04:19 PM
+-- Generation Time: May 24, 2025 at 12:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -130,17 +130,20 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `profilepic` varchar(255) DEFAULT NULL,
-  `role` varchar(20) NOT NULL
+  `role` varchar(20) NOT NULL,
+  `remember_token` varchar(64) DEFAULT NULL,
+  `remember_token_expires` datetime DEFAULT NULL,
+  `bio` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `profilepic`, `role`) VALUES
-(1, 'geri', 'asd', 'fan01@w2e.com', NULL, 'admin'),
-(2, 'sunnyBeats', 'hashedpw2', 'sunny@w2e.com', NULL, 'member'),
-(3, 'jazzyWave', 'hashedpw3', 'jazzy@w2e.com', NULL, 'member');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `profilepic`, `role`, `remember_token`, `remember_token_expires`, `bio`) VALUES
+(1, 'geri', 'asd', 'fan01@w2e.com', NULL, 'admin', NULL, NULL, 'dsadasdasfsadasdfsa'),
+(2, 'sunnyBeats', 'hashedpw2', 'sunny@w2e.com', NULL, 'member', NULL, NULL, 'fsadasfasfqwe'),
+(3, 'jazzyWave', 'hashedpw3', 'jazzy@w2e.com', NULL, 'member', NULL, NULL, 'fsadfasfasfsada');
 
 --
 -- Indexes for dumped tables
@@ -186,7 +189,8 @@ ALTER TABLE `forum_posting`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `remember_token` (`remember_token`);
 
 --
 -- AUTO_INCREMENT for dumped tables
