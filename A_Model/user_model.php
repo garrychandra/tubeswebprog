@@ -206,4 +206,13 @@
         WHERE f.user_id = $user_id $search_sql";
         return mysqli_query($con, $sql);
     }
+
+    function loadDiscography() {
+        $xml = simplexml_load_file('../xml/discography.xml');
+        if ($xml === false) {
+            die('Failed to load XML file');
+        }
+        return $xml;
+    }
+
 ?>

@@ -75,7 +75,7 @@
                 include 'members_view.html';
                 break;
             case "discography";
-                include 'discography_view.html';
+                include 'discography_view.php';
                 break;
             case "single":
                 include 'discography_view.html';
