@@ -8,13 +8,14 @@
     }
 
     //SIGN IN
-    function get_user_by_email_password($email, $password)
+    function get_user_by_email_password($login, $password)
     {
         global $con;
-        $email = escape($email);
+        $login = escape($login);
         $password = escape($password);
 
-        $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
+        // Check both email and username fields
+        $sql = "SELECT * FROM user WHERE (email = '$login' OR username = '$login') AND password = '$password'";
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) === 1) {

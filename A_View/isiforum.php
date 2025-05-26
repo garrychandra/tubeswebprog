@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     //user image and name links to user page
     echo "<div class='forum-post' id='post_" . $row['post_id'] . "'>";
     echo "<div class='user-info'>";
-    echo "<img src='../uploads/" . $row['profilepic'] . "' alt='User Image' class='user-image'><br>";
+    echo "<img src='../uploads/<?= htmlspecialchars($user[profilepic] ?? 'default.png')?>' alt='Profile Picture' class='profile-pic' width='100' height='100'>";
     
     echo "<a href='main.php?page=profile&id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
     echo $row['date_posted'];
