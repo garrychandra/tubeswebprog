@@ -1,0 +1,79 @@
+.forum-post {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 70%;
+    border: 1px solid white;
+    color: white;
+    margin: auto;
+}
+
+.user-info {
+    margin-right: 20px;
+    float: left;
+    border: 1px solid white;
+}
+
+.post-content {
+    width: 100%;
+}
+
+.attachment-image {
+    width: 350px;         /* Increase width as needed */
+    max-height: 350px;    /* Optional: limit height */
+    object-fit: contain;  /* Keep aspect ratio */
+    display: block;
+    margin-bottom: 10px;
+}
+.attachments {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.attachment-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center image & button */
+    margin: 10px;
+    width: fit-content;
+    text-align: center;
+}
+
+.delete-attachment {
+    margin-top: 5px;
+}
+
+
+.post-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    float: right;
+
+}
+
+.reply {
+    margin-top: 20px;
+    width: 70%;
+    border: 1px solid white;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    padding: 20px;
+    background: transparent;
+}
+
+input[type="submit"] {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    color: black;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 80px;
+    min-height: 32px;
+    background-color: white;
+}

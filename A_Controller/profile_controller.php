@@ -5,8 +5,8 @@
     $logged_in = isset($_SESSION['user_id']);
 
     // Check whether user visit his own or other profile page
-    if(isset($_GET['user_id'])) {
-        $profile_id = (int)$_GET['user_id']; // user see other 
+    if(isset($_GET['id'])) {
+        $profile_id = (int)$_GET['id']; // user see other 
     }elseif ($logged_in){
         $profile_id = (int)$_SESSION['user_id']; // user see his own
     }else {

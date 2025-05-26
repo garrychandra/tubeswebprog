@@ -9,7 +9,7 @@
         <p id="error-message"></p>
         <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
 
-        <form id="form" action="../A_Controller/signup2_controller.php" method="post">
+        <form id="form" action="../A_Controller/signup2_controller.php" method="post" enctype="multipart/form-data">
 
             <h3>Sign Up</h3>
 
