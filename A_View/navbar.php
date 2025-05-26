@@ -17,19 +17,12 @@
             <li><a href="main.php?page=forum">FORUM</a></li>
         <?php endif; ?>
 
-        <li><a href="main.php?page=updates">UPDATES</a></li>
-        
-        <?php if(empty($_SESSION['user_id'])): ?>
-        <li><a href="main.php?page=login">LOGIN</a></li>
-        <?php else: ?>
-        <li><a href="main.php?page=logout">LOGOUT</a></li>
-        <?php endif; ?>
-
         <?php if (!empty($_SESSION['user_id'])): ?>
             <?php if ($_SESSION['is_admin'] == 'admin'): ?>
                 <li><a href="">ADMIN</a></li>    
             <?php endif; ?>
             <li><a href="main.php?page=profile">PROFILE</a></li>
+            <li><a href="main.php?page=logout">LOGOUT</a></li>
             <?php else: ?>
             <li><a href="main.php?page=updates">UPDATES</a></li> <li><a href="main.php?page=login">LOGIN</a></li>
         <?php endif; ?>

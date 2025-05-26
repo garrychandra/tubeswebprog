@@ -33,20 +33,12 @@
 
         if (isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] == 0) {
             $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
-            $max_file_size = 2 * 1024 * 1024; // 2MB
 
             $file_extension = strtolower(pathinfo($_FILES['profilepic']['name'], PATHINFO_EXTENSION));
             $file_size = $_FILES['profilepic']['size'];
 
             if (!in_array($file_extension, $allowed_extensions)) {
                 $_SESSION['message'] = "File type not allowed. JPG, JPEG, PNG, GIF only.";
-                $_SESSION['message_type'] = "error";
-                header("Location: ../A_View/main.php?page=edit_profile");
-                exit();
-            }
-
-            if ($file_size > $max_file_size) {
-                $_SESSION['message'] = "File size is too big. Max 2MB.";
                 $_SESSION['message_type'] = "error";
                 header("Location: ../A_View/main.php?page=edit_profile");
                 exit();

@@ -1,6 +1,6 @@
 <?php
 include_once "../A_Model/config.php";
-session_start();
+
 $admin = false;
 if (isset($_SESSION['admin'])) {
     $admin = $_SESSION['admin'];

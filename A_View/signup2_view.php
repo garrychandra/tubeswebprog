@@ -20,7 +20,7 @@
 
             <div>
                 <label for="profile_pic-input">Picture Profile</label>
-                <input type="file" name="profile_pic" id="profile_pic-input">
+                <input type="file" name="profilepic" id="profile_pic-input">
             </div>
 
             <div>

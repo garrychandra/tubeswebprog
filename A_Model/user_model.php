@@ -188,7 +188,7 @@
         global $con;
         $user_id = (int)$user_id;
 
-        $search_sql = $search ? " AND user.username LIKE '%". escape($search). "%'" : '';
+        $search_sql = $search ? " AND u.username LIKE '%". escape($search). "%'" : '';
         $sql = "
         SELECT u.id, u.username, u.profilepic FROM follow AS f
         JOIN user AS u ON f.user_id = u.id

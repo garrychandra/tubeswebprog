@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Main</title>
 
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/home-main.css">
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../css/responsive-discography.css">
 
     <link rel="stylesheet" href="../css/updates.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -89,7 +90,10 @@
                 echo "<script>location.hash = '#card_3';</script>"; // Scroll to the element
                 break;
             case "forum":
-                include 'forum1_revisi.html';
+                include 'showforums.php';
+                break;
+            case "isiforum":
+                include 'isiforum.php';
                 break;
             case "updates":
                 include 'updates_view.html';
@@ -111,11 +115,14 @@
                 include '../A_Controller/edit_controller.php';
                 include 'edit_profile.php';
                 break;
-            case "followers";
+            case "followers":
                 include '../A_Controller/followers_controller.php';
                 break;
                 case "following";
                 include '../A_Controller/followers_controller.php';
+                break;
+            case "logout":
+                include 'logout_view.php';
                 break;
             default:
                 include 'home_view.html';

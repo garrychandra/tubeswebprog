@@ -19,21 +19,17 @@
 <ul>
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <li>
-            <img src="../uploads/<?= htmlspecialchars($row['profile_pic']); ?>" alt="" width="40" height="40">
-            <a href="main.php?page=profile&user_id=<?= $row['id'] ?>"><?= htmlspecialchars($row['username']) ?></a>
+            <img src="../uploads/<?= htmlspecialchars($row['profilepic']); ?>" alt="" width="40" height="40">
+            <a href="main.php?page=profile&id=<?= $row['id'] ?>"><?= htmlspecialchars($row['username']) ?></a>
 
             <?php if ($logged_in_user && $logged_in_user != $row['id']): ?>
-                <?php if (!is_following($logged_in_user, $row['id'])): ?>
-                    <form action="../A_Controller/follow_cont.php" method="POST" style="display: inline;">
-                        <input type="hidden" name="follow_id" value="<?= $row['id'] ?>">
-                        <button type="submit" class="c-btn">Follow</button>
-                    </form>
-                <?php else: ?>
-                    <form action="../A_Controller/unfollow_cont.php" method="POST" style="display: inline;">
-                        <input type="hidden" name="unfollow_id" value="<?= $row['id'] ?>">
-                        <button type="submit" class="c-btn">Unfollow</button>
-                    </form>
-                <?php endif; ?>
+                <button 
+                    class="follow-btn c-btn" 
+                    data-user-id="<?= htmlspecialchars($row['id']) ?>" 
+                    data-follow="<?= !is_following($logged_in_user, $row['id']) ? '1' : '0' ?>"
+                >
+                    <?= !is_following($logged_in_user, $row['id']) ? 'Follow' : 'Unfollow' ?>
+                </button>
             <?php endif; ?>
         </li>
     <?php endwhile; ?>

@@ -27,7 +27,7 @@
 
 <div class="profile-container">
     <div class="profile-header">
-        <img src="../uploads/<?= htmlspecialchars($user['profilepic'] ?? 'default.png')?>" alt="Profile Picture" class="profile-pic">
+        <img src="../uploads/<?= htmlspecialchars($user['profilepic'] ?? 'default.png')?>" alt="Profile Picture" class="profile-pic" width='100' height="100">
         <div class="profile-info">
             <h2><?= htmlspecialchars($user['username'] ?? '') ?></h2>
             <?php if(isset($user['is_admin']) && $user['is_admin']): ?>
@@ -37,8 +37,8 @@
             <p><strong>Email:</strong> <?= htmlspecialchars($user['email'] ?? '') ?></p>
 
             <div class="stats">
-                <span><a href="main.php?page=followers&user_id=<?= htmlspecialchars($user['id']) ?>">Followers: <?= htmlspecialchars($followers)?></a></span>
-                <span><a href="main.php?page=following&user_id=<?= htmlspecialchars($user['id'])?>">Following: <?= htmlspecialchars($following)?></a></span>
+                <span><a href="main.php?page=followers&user_id=<?= htmlspecialchars($user['id']) ?>&type=followers">Followers: <?= htmlspecialchars($followers)?></a></span>
+                <span><a href="main.php?page=following&user_id=<?= htmlspecialchars($user['id'])?>&type=following">Following: <?= htmlspecialchars($following)?></a></span>
             </div>
         </div>
     </div><?php

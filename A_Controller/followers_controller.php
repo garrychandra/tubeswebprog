@@ -1,6 +1,4 @@
 <?php 
-    session_start();
-
     require_once '../A_Model/user_model.php';
 
     echo "<pre> SESSION";
@@ -18,7 +16,7 @@
     $type = ($_GET['type'] === 'following') ? 'following' : 'followers';
     $search = $_GET['search'] ?? '';
 
-    $sql = "SELECT username FROM users WHERE id = $target_id";
+    $sql = "SELECT username FROM user WHERE id = $target_id";
     $user_q = mysqli_query($con, $sql);
 
     if(mysqli_num_rows($user_q) !== 1) die("User not found.");

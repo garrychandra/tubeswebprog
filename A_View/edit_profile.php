@@ -21,15 +21,15 @@
         </div>
 
         <div class="form-group">
-            <label for="profile_pic">Profile Picture:</label>
-            <?php if (!empty($user['profile_pic'])): ?>
-                <img src="../uploads/<?= htmlspecialchars($user['profile_pic']) ?>" alt="Current Profile Picture" class="profile-pic-preview">
+            <label for="profilepic">Profile Picture:</label>
+            <?php if (!empty($user['profilepic'])): ?>
+                <img src="../uploads/<?= htmlspecialchars($user['profilepic']) ?>" alt="Current Profile Picture" class="profile-pic-preview">
                 <br>
             <?php else: ?>
                 <img src="../uploads/default.png" alt="Default Profile Picture" class="profile-pic-preview">
                 <br>
             <?php endif; ?>
-            <input type="file" id="profile_pic" name="profile_pic" accept="image/jpeg, image/png, image/gif">
+            <input type="file" id="profilepic" name="profilepic" accept="image/jpeg, image/png, image/gif">
             <small>Max 2MB. JPG, JPEG, PNG, GIF only.</small>
         </div>
 

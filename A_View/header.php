@@ -7,4 +7,4 @@
 
 <div id="stickyHeader">
     <h1>Wave to Earth</h1>
-</div>
+</div> 

@@ -27,7 +27,7 @@ $user = get_user_by_id($user_id);
     </div>
     <div>
         <label for="">Profile Picture</label>
-        <input type="file" name="profile_pic">
+        <input type="file" name="profilepic">
     </div>
     <button type="submit" name="edit-btn">Update Profile</button>
 </form>

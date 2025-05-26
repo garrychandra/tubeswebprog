@@ -23,6 +23,10 @@
 
             <button type="submit" class="btn" name="log-btn">Log In</button>
 
+            <div>
+                <input type="checkbox" name="remember" id="remember">Remember me
+            </div>
+
             <!-- <div class="popup" id="popup">
                 <h2>Congratulations!</h2>
                 <p>You have successfully signed up</p>
