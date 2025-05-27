@@ -341,4 +341,35 @@ function delete_user($user_id) {
         return false; // Gagal dihapus
     }
 }
+
+
+    function render_discography_comments($forum_name, $con) {
+    // Find the forum by name
+    $forum_q = mysqli_query($con, "SELECT forum_id FROM forum WHERE name='" . mysqli_real_escape_string($con, $forum_name) . "'");
+    $forum_row = mysqli_fetch_assoc($forum_q);
+    $forum_id = $forum_row ? $forum_row['forum_id'] : null;
+
+    if ($forum_id) {
+        // Fetch comments
+        $comments = mysqli_query($con, "SELECT fp.*, u.username FROM forum_posting fp JOIN user u ON fp.user_id = u.id WHERE fp.forum_id = $forum_id ORDER BY fp.date_posted ASC");
+        echo "<div class='album-comments'>";
+        echo "<h2>" . htmlspecialchars($forum_name) . "</h2>";
+        while ($c = mysqli_fetch_assoc($comments)) {
+            echo "<div class='comment'><b>" . htmlspecialchars($c['username']) . ":</b> " . htmlspecialchars($c['content']) . "</div>";
+        }
+        echo "</div>";
+        // Comment form
+        if (isset($_SESSION['user_id'])) {
+            // $modal_id should be passed as a parameter to the function!
+            echo "<form method='post' action='../A_Controller/add_album_comment.php'>";
+            echo "<input type='hidden' name='forum_id' value='$forum_id'>";
+            echo "<input type='text' name='content' required style='background-color:white;'></textarea>";
+            echo "<button type='submit'>Comment</button>";
+            echo "</form>";
+        }
+    } else {
+        echo "<div class='album-comments'>No comment forum found for this item.</div>";
+    }
+}
+
 ?>

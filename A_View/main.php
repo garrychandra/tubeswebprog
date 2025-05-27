@@ -61,6 +61,7 @@
     <script src="js/editpost.js"></script>
     <script src="js/follow.js"></script>
     <script src="js/createforum.js"></script>
+    <script src="../script/discography.js"></script>
 </head>
 
 <body>
@@ -77,15 +78,15 @@
                 include 'discography_view.php';
                 break;
             case "single":
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_1';</script>"; // Scroll to the element
                 break;
             case "eps";
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_2';</script>"; // Scroll to the element
                 break;
             case "albums":
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_3';</script>"; // Scroll to the element
                 break;
             case "forum":
@@ -122,6 +123,9 @@
                 break;
             case "logout":
                 include 'logout_view.php';
+                break;
+            case "admin";
+                include 'admin_view.php';
                 break;
             default:
                 include 'home_view.html';
