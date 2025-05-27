@@ -121,10 +121,9 @@ function update_user_profile($id, $username, $bio, $profilepic)
     $profilepic = escape($profilepic);
 
     if ($profilepic !== null) {
-        $profilepic = escape($profilepic);
         $sql = "UPDATE user SET username='$username', bio='$bio', profilepic='$profilepic' WHERE id=$id";
     } else {
-        $sql = "UPDATE user SET username='$username', bio='$bio'";
+        $sql = "UPDATE user SET username='$username', bio='$bio' WHERE id=$id"; // Tambahkan WHERE id=$id di sini juga
     }
 
     return mysqli_query($con, $sql);
@@ -185,133 +184,83 @@ function clear_user_remember_token($user_id)
 function is_following($user_id, $id_follow)
 {
     global $con;
-    $sql = "SELECT 1 FROM follow WHERE user_id = $user_id AND id_follow= $id_follow";
-    $check = mysqli_query($con, $sql);
-    return mysqli_num_rows($check) > 0;
+    $stmt = mysqli_prepare($con, "SELECT 1 FROM follow WHERE user_id = ? AND id_follow = ?");
+    if ($stmt === false) {
+        error_log("Prepare failed: " . mysqli_error($con)); // Untuk debugging internal
+        return false;
+    }
+    mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow); // "ii" berarti dua integer
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    $num_rows = mysqli_stmt_num_rows($stmt);
+    mysqli_stmt_close($stmt);
+    return $num_rows > 0;
 }
 
 //Follow
-function get_followers($user_id, $search = '')
-{
+function get_followers($user_id, $search = ''){
     global $con;
     $user_id = (int)$user_id;
 
-<<<<<<< HEAD
-    // hapus token "remember me" dari database (logout)
-    function clear_user_remember_token($user_id) {
-        global $con;
-        $stmt = mysqli_prepare($con, "UPDATE user SET remember_token = NULL, remember_token_expires = NULL WHERE id = ?");
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $user_id);
-            $success = mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-            return $success;
-        }
-        return false;
+    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.user_id = u.id WHERE f.id_follow = ?";
+    $params = "i"; // Parameter untuk user_id
+
+    if ($search) {
+        $sql .= " AND u.username LIKE ?";
+        $params .= "s"; // "s" untuk string
+        $search_param = '%' . $search . '%'; // Tambahkan wildcard
     }
 
-    // User and Followers
-    function is_following($user_id, $id_follow)
-    {
-        global $con;
-        $stmt = mysqli_prepare($con, "SELECT 1 FROM follow WHERE user_id = ? AND id_follow = ?");
-        if ($stmt === false) {
-            error_log("Prepare failed: " . mysqli_error($con)); // Untuk debugging internal
-            return false;
-        }
-        mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow); // "ii" berarti dua integer
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-        $num_rows = mysqli_stmt_num_rows($stmt);
-        mysqli_stmt_close($stmt);
-        return $num_rows > 0;
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($stmt === false) { // Penanganan error jika prepare gagal
+        error_log("Error preparing statement for get_followers: " . mysqli_error($con));
+        return false; // Mengembalikan false atau array kosong sebagai indikasi error
     }
 
-    //Follow
-    function get_followers($user_id, $search = ''){
-        global $con;
-        $user_id = (int)$user_id;
-
-        $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.user_id = u.id WHERE f.id_follow = ?";
-        $params = "i"; // Parameter untuk user_id
-
-        if ($search) {
-            $sql .= " AND u.username LIKE ?";
-            $params .= "s"; // "s" untuk string
-            $search_param = '%' . $search . '%'; // Tambahkan wildcard
-        }
-
-        $stmt = mysqli_prepare($con, $sql);
-
-        if ($stmt === false) { // Penanganan error jika prepare gagal
-            error_log("Error preparing statement for get_followers: " . mysqli_error($con));
-            return false; // Mengembalikan false atau array kosong sebagai indikasi error
-        }
-
-        if ($search) {
-            mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
-        } else {
-            mysqli_stmt_bind_param($stmt, $params, $user_id);
-        }
-
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
-        // Tidak perlu mysqli_stmt_close($stmt) di sini, biarkan pemanggil menutup jika perlu,
-        // atau biarkan PHP membersihkannya setelah script selesai.
-        return $result;
+    if ($search) {
+        mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
+    } else {
+        mysqli_stmt_bind_param($stmt, $params, $user_id);
     }
 
-    function get_following($user_id, $search = ''){
-        global $con;
-        $user_id = (int)$user_id;
-
-        $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.id_follow = u.id WHERE f.user_id = ?";
-        $params = "i";
-
-        if ($search) {
-            $sql .= " AND u.username LIKE ?";
-            $params .= "s";
-            $search_param = '%' . $search . '%';
-        }
-
-        $stmt = mysqli_prepare($con, $sql);
-
-        if ($stmt === false) { // Penanganan error jika prepare gagal
-            error_log("Error preparing statement for get_following: " . mysqli_error($con));
-            return false; // Mengembalikan false atau array kosong sebagai indikasi error
-        }
-
-        if ($search) {
-            mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
-        } else {
-            mysqli_stmt_bind_param($stmt, $params, $user_id);
-        }
-
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
-        return $result;
-    } 
-=======
-    $search_sql = $search ? " AND u.username LIKE '%" . escape($search) . "%'" : '';
-    $sql = "
-        SELECT u.id, u.username, u.profilepic FROM follow AS f
-        JOIN user AS u ON f.user_id = u.id
-        WHERE f.id_follow = $user_id $search_sql";
-    return mysqli_query($con, $sql);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
+    // Tidak perlu mysqli_stmt_close($stmt) di sini, biarkan pemanggil menutup jika perlu,
+    // atau biarkan PHP membersihkannya setelah script selesai.
+    return $result;
 }
 
-function get_following($user_id, $search = '')
-{
+function get_following($user_id, $search = ''){
     global $con;
     $user_id = (int)$user_id;
-    $search_sql = $search ? " AND u.username LIKE '%" . escape($search) . "%'" : '';
-    $sql = "
-        SELECT u.id, u.username, u.profilepic FROM follow AS f
-        JOIN user AS u ON f.id_follow = u.id
-        WHERE f.user_id = $user_id $search_sql";
-    return mysqli_query($con, $sql);
-}
->>>>>>> 013da442fcf00fc11339624b633852d9c246b2d4
+
+    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.id_follow = u.id WHERE f.user_id = ?";
+    $params = "i";
+
+    if ($search) {
+        $sql .= " AND u.username LIKE ?";
+        $params .= "s";
+        $search_param = '%' . $search . '%';
+    }
+
+    $stmt = mysqli_prepare($con, $sql);
+
+    if ($stmt === false) { // Penanganan error jika prepare gagal
+        error_log("Error preparing statement for get_following: " . mysqli_error($con));
+        return false; // Mengembalikan false atau array kosong sebagai indikasi error
+    }
+
+    if ($search) {
+        mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
+    } else {
+        mysqli_stmt_bind_param($stmt, $params, $user_id);
+    }
+
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
+    return $result;
+} 
 
 function loadDiscography()
 {
