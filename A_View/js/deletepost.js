@@ -7,7 +7,6 @@ $(document).ready(function () {
                 type: 'POST',
                 url: "../A_Controller/deletePost.php", // URL to your delete script
                 data: $("form").serialize(),
-                //or your custom data either as object {foo: "bar", ...} or foo=bar&...
                 success: function (response) {
                     // Handle success response
                     alert('Post deleted successfully');
