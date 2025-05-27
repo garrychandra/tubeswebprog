@@ -31,54 +31,64 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     //print all forum posting here
     //display attachment
     //user image and name links to user page
-    echo "<div class='forum-post' id='post_" . $row['post_id'] . "'>";
-    echo "<div class='user-info'>";
-    echo "<img src='../uploads/<?= htmlspecialchars($user[profilepic] ?? 'default.png')?>' alt='Profile Picture' class='profile-pic' width='100' height='100'>";
-    
-    echo "<a href='main.php?page=profile&id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
-    echo $row['date_posted'];
-    echo "<br>";
-    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $row['user_id']) {
-        $sql = "SELECT * FROM follow WHERE user_id = " . $_SESSION['user_id'] . " AND id_follow = " . $row['id'];
-        $result2 = mysqli_query($con, $sql);
-        //follow button
-        if(mysqli_num_rows($result2) > 0){
-            echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='0'>Unfollow</button>";
-        } else {
-            echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='1'>Follow</button>";
+    if($row['role'] != 'banned'){
+        echo "<div class='forum-post' id='post_" . $row['post_id'] . "'>";
+        echo "<div class='user-info'>";
+        echo "<img src='../uploads/" . htmlspecialchars($row['profilepic'] ?? 'default.png') . "' alt='Profile Picture' class='profile-pic'><br>";
+        echo "<a href='main.php?page=profile&id=" . $row['id'] . "'>" . $row['username'] . "</a><br>";
+        echo "<span class='role' style='color: " . ($row['role'] == 'admin' ? 'red' : 'green') .  ";'>" . $row['role'] . "</span><br>";
+        echo $row['date_posted'];
+        echo "<br>";
+        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $row['user_id']) {
+            $sql = "SELECT * FROM follow WHERE user_id = " . $_SESSION['user_id'] . " AND id_follow = " . $row['id'];
+            $result2 = mysqli_query($con, $sql);
+            //follow button
+            if(mysqli_num_rows($result2) > 0){
+                echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='0'>Unfollow</button>";
+            } else {
+                echo "<button class='follow-btn' data-user-id='".$row['id']."' data-follow='1'>Follow</button>";
+            }
         }
+        if( $row['role'] != 'admin' && $admin) {
+            echo "<form action='../A_Controller/ban_controller.php' method='post'>";
+            echo "<input type='hidden' name='user_id' value='" . $row['id'] . "'>";
+            echo "<input type='hidden' name='forum_id' value='" . $row['forum_id'] . "'>";
+            echo "<input type='submit' value='Ban' style='background-color: red; color: white; max-height= 20px; width: 50px;'>";
+            echo "</form>";
+        }
+
+        echo "</div>";
+        echo "<div class='post-content' id='content_" . $row['post_id'] . "'>";
+        echo $row['content'];
+        echo "<br>";
+        $sql = "SELECT attachment FROM attachment WHERE post_id = " . $row['post_id'];
+        $result2 = mysqli_query($con, $sql);
+        echo "<div class='attachments'>";
+        while ($row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC)) {
+            echo "<img src='" . $row2['attachment'] . "' alt='User Image' class='attachment-image'><br>";
+        }
+        echo "</div>";
+        echo "<br>";
+        echo "<div class='post-actions'>";
+        if ($row['user_id'] == $id) {
+            echo "<form class='editform' method='post'>";
+            echo "<input type='hidden' name='post_id' value='" . $row['post_id'] . "'>";
+            echo "<input type='hidden' name='forum_id' value='" . $row['forum_id'] . "'>";
+            echo "<input type='submit' value='Edit'>";
+            echo "</form>";
+        }
+        if ($admin) {
+            echo "<form class='deleteform' method='post'>";
+            echo "<input type='hidden' name='post_id' value='" . $row['post_id'] . "'>";
+            echo "<input type='hidden' name='forum_id' value='" . $row['forum_id'] . "'>";
+            echo "<input type='hidden' name='user_id' value='" . $row['user_id'] . "'>";
+            echo "<input type='submit' value='Delete'>";
+            echo "</form>";
+        }
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
     }
-    echo "</div>";
-    echo "<div class='post-content' id='content_" . $row['post_id'] . "'>";
-    echo $row['content'];
-    echo "<br>";
-    $sql = "SELECT attachment FROM attachment WHERE post_id = " . $row['post_id'];
-    $result2 = mysqli_query($con, $sql);
-    echo "<div class='attachments'>";
-    while ($row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC)) {
-        echo "<img src='" . $row2['attachment'] . "' alt='User Image' class='attachment-image'><br>";
-    }
-    echo "</div>";
-    echo "<br>";
-    echo "<div class='post-actions'>";
-    if ($row['user_id'] == $id) {
-        echo "<form class='editform' method='post'>";
-        echo "<input type='hidden' name='post_id' value='" . $row['post_id'] . "'>";
-        echo "<input type='hidden' name='forum_id' value='" . $row['forum_id'] . "'>";
-        echo "<input type='submit' value='Edit'>";
-        echo "</form>";
-    }
-    if ($admin) {
-        echo "<form class='deleteform' method='post'>";
-        echo "<input type='hidden' name='post_id' value='" . $row['post_id'] . "'>";
-        echo "<input type='hidden' name='forum_id' value='" . $row['forum_id'] . "'>";
-        echo "<input type='hidden' name='user_id' value='" . $row['user_id'] . "'>";
-        echo "<input type='submit' value='Delete'>";
-        echo "</form>";
-    }
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
 }
 echo "<br>";
 echo "<div class='reply'>";
