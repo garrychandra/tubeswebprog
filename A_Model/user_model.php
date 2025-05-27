@@ -285,3 +285,80 @@ function search_users($term)
     }
     return mysqli_query($con, $sql);
 }
+
+// hapus akun
+function delete_user($user_id) {
+    global $con;
+    $user_id = (int)$user_id;
+
+    // Mulai transaksi untuk memastikan semua operasi sukses atau tidak sama sekali
+    mysqli_begin_transaction($con);
+
+    try {
+        // Hapus postingan (misalnya dari tabel 'post')
+        $stmt = mysqli_prepare($con, "DELETE FROM post WHERE user_id = ?");
+        if ($stmt === false) throw new Exception(mysqli_error($con));
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Hapus komentar (misalnya dari tabel 'comment')
+        $stmt = mysqli_prepare($con, "DELETE FROM comment WHERE user_id = ?");
+        if ($stmt === false) throw new Exception(mysqli_error($con));
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Hapus data follow/following (dari tabel 'follow')
+        // User yang dihapus tidak lagi follow siapapun dan tidak lagi diikuti siapapun
+        $stmt = mysqli_prepare($con, "DELETE FROM follow WHERE user_id = ? OR id_follow = ?");
+        if ($stmt === false) throw new Exception(mysqli_error($con));
+        mysqli_stmt_bind_param($stmt, "ii", $user_id, $user_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Hapus data likes/dislikes (jika ada tabel 'likes' atau 'post_reactions')
+        // Ini contoh, sesuaikan dengan nama tabel Anda
+        // $stmt = mysqli_prepare($con, "DELETE FROM likes WHERE user_id = ?");
+        // if ($stmt === false) throw new Exception(mysqli_error($con));
+        // mysqli_stmt_bind_param($stmt, "i", $user_id);
+        // mysqli_stmt_execute($stmt);
+        // mysqli_stmt_close($stmt);
+
+        // Dapatkan nama file profil picture sebelum menghapus user
+        $profilepic = null;
+        $stmt_pic = mysqli_prepare($con, "SELECT profilepic FROM user WHERE id = ?");
+        if ($stmt_pic === false) throw new Exception(mysqli_error($con));
+        mysqli_stmt_bind_param($stmt_pic, "i", $user_id);
+        mysqli_stmt_execute($stmt_pic);
+        mysqli_stmt_bind_result($stmt_pic, $profilepic_name);
+        mysqli_stmt_fetch($stmt_pic);
+        mysqli_stmt_close($stmt_pic);
+
+        // Hapus user dari tabel 'user'
+        $stmt = mysqli_prepare($con, "DELETE FROM user WHERE id = ?");
+        if ($stmt === false) throw new Exception(mysqli_error($con));
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        $deleted_rows = mysqli_stmt_affected_rows($stmt); // Cek berapa baris yang terhapus
+        mysqli_stmt_close($stmt);
+
+        // Jika user berhasil dihapus dari tabel user, hapus file gambar profilnya
+        if ($deleted_rows > 0 && $profilepic_name && $profilepic_name !== 'default.png') {
+            $file_path = '../uploads/' . $profilepic_name; // Sesuaikan path jika berbeda
+            if (file_exists($file_path)) {
+                unlink($file_path); // Hapus file dari server
+            }
+        }
+
+        // Commit transaksi jika semua operasi berhasil
+        mysqli_commit($con);
+        return true; // Berhasil dihapus
+    } catch (Exception $e) {
+        // Rollback transaksi jika ada operasi yang gagal
+        mysqli_rollback($con);
+        error_log("Error deleting user " . $user_id . ": " . $e->getMessage()); // Log error
+        return false; // Gagal dihapus
+    }
+}
+?>
