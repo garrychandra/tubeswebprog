@@ -115,10 +115,10 @@
                 include 'edit_profile.php';
                 break;
             case "followers":
-                include '../A_Controller/followers_controller.php';
+                include '../A_Controller/followers_view.php';
                 break;
                 case "following";
-                include '../A_Controller/followers_controller.php';
+                include '../A_Controller/followers_view.php';
                 break;
             case "logout":
                 include 'logout_view.php';

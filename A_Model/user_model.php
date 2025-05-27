@@ -79,35 +79,67 @@ function get_following_count($id)
 }
 
 // nambah relasi follow
+// function add_follow($user_id, $id_follow)
+// {
+//     global $con;
+//     if (is_following($user_id, $id_follow)) {
+//         return true;
+//     }
+
+//     $stmt = mysqli_prepare($con, "INSERT INTO follow (user_id, id_follow) VALUES (?, ?)");
+//     if ($stmt) {
+//         mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow);
+//         $success = mysqli_stmt_execute($stmt);
+//         mysqli_stmt_close($stmt);
+//         return $success;
+//     }
+//     return false;
+// }
+
+// // remove relasi follow
+// function remove_follow($user_id, $id_follow)
+// {
+//     global $con;
+//     $stmt = mysqli_prepare($con, "DELETE FROM follow WHERE user_id = ? AND id_follow = ?");
+//     if ($stmt) {
+//         mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow);
+//         $success = mysqli_stmt_execute($stmt);
+//         mysqli_stmt_close($stmt);
+//         return $success;
+//     }
+//     return false;
+// }
+
 function add_follow($user_id, $id_follow)
 {
     global $con;
-    if (is_following($user_id, $id_follow)) {
+
+    $user_id_safe = (int)$user_id;
+    $id_follow_safe = (int)$id_follow;
+
+    if (is_following($user_id_safe, $id_follow_safe)) {
         return true;
     }
 
-    $stmt = mysqli_prepare($con, "INSERT INTO follow (user_id, id_follow) VALUES (?, ?)");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow);
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $success;
-    }
-    return false;
+    $sql = "INSERT INTO follow (user_id, id_follow) VALUES ($user_id_safe, $id_follow_safe)";
+
+    $success = mysqli_query($con, $sql);
+
+    return $success;
 }
 
-// remove relasi follow
 function remove_follow($user_id, $id_follow)
 {
     global $con;
-    $stmt = mysqli_prepare($con, "DELETE FROM follow WHERE user_id = ? AND id_follow = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow);
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $success;
-    }
-    return false;
+
+    $user_id_safe = (int)$user_id;
+    $id_follow_safe = (int)$id_follow;
+
+    $sql = "DELETE FROM follow WHERE user_id = $user_id_safe AND id_follow = $id_follow_safe";
+
+    $success = mysqli_query($con, $sql);
+
+    return $success;
 }
 
 //Edit Profile
@@ -130,35 +162,78 @@ function update_user_profile($id, $username, $bio, $profilepic)
 }
 
 // nyimpen token "remember me" ke database
+// function update_user_remember_token($user_id, $token)
+// {
+//     global $con;
+//     // Token akan berlaku selama 30 hari di database
+//     $expires_at = date('Y-m-d H:i:s', time() + 3600);
+
+//     $stmt = mysqli_prepare($con, "UPDATE user SET remember_token = ?, remember_token_expires = ? WHERE id = ?");
+//     if ($stmt) {
+//         mysqli_stmt_bind_param($stmt, "ssi", $token, $expires_at, $user_id);
+//         $success = mysqli_stmt_execute($stmt);
+//         mysqli_stmt_close($stmt);
+//         return $success;
+//     }
+//     return false;
+// }
+
+// nyimpen token "remember me" ke database
 function update_user_remember_token($user_id, $token)
 {
     global $con;
-    // Token akan berlaku selama 30 hari di database
-    $expires_at = date('Y-m-d H:i:s', time() + 3600);
 
-    $stmt = mysqli_prepare($con, "UPDATE user SET remember_token = ?, remember_token_expires = ? WHERE id = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssi", $token, $expires_at, $user_id);
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $success;
-    }
-    return false;
+    $expires_at = date('Y-m-d H:i:s', time() + 3600); 
+
+    // Lakukan sanitasi dasar untuk user_id (karena ini integer)
+    $user_id_safe = (int)$user_id;
+
+    $token_safe = mysqli_real_escape_string($con, $token);
+    $expires_at_safe = mysqli_real_escape_string($con, $expires_at);
+
+    $sql = "UPDATE user SET remember_token = '$token_safe', remember_token_expires = '$expires_at_safe' WHERE id = $user_id_safe";
+
+    $success = mysqli_query($con, $sql);
+
+    return $success;
 }
+
+
+// // ngambil data user berdasarkan token "remember me" dari database
+// function get_user_by_remember_token($token)
+// {
+//     global $con;
+//     $stmt = mysqli_prepare($con, "SELECT id, username, is_admin, remember_token_expires FROM user WHERE remember_token = ?");
+//     if ($stmt) {
+//         mysqli_stmt_bind_param($stmt, "s", $token);
+//         mysqli_stmt_execute($stmt);
+//         $result = mysqli_stmt_get_result($stmt);
+//         $user = mysqli_fetch_assoc($result);
+//         mysqli_stmt_close($stmt);
+
+//         // Cek apakah token ada dan belum kedaluwarsa
+//         if ($user && strtotime($user['remember_token_expires']) > time()) {
+//             return $user;
+//         }
+//     }
+//     return false;
+// }
 
 // ngambil data user berdasarkan token "remember me" dari database
 function get_user_by_remember_token($token)
 {
     global $con;
-    $stmt = mysqli_prepare($con, "SELECT id, username, is_admin, remember_token_expires FROM user WHERE remember_token = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "s", $token);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $user = mysqli_fetch_assoc($result);
-        mysqli_stmt_close($stmt);
 
-        // Cek apakah token ada dan belum kedaluwarsa
+    $token_safe = mysqli_real_escape_string($con, $token);
+
+    $sql = "SELECT id, username, is_admin, remember_token_expires FROM user WHERE remember_token = '$token_safe'";
+
+    $result = mysqli_query($con, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+
         if ($user && strtotime($user['remember_token_expires']) > time()) {
             return $user;
         }
@@ -167,100 +242,114 @@ function get_user_by_remember_token($token)
 }
 
 // hapus token "remember me" dari database (logout)
+// function clear_user_remember_token($user_id)
+// {
+//     global $con;
+//     $stmt = mysqli_prepare($con, "UPDATE user SET remember_token = NULL, remember_token_expires = NULL WHERE id = ?");
+//     if ($stmt) {
+//         mysqli_stmt_bind_param($stmt, "i", $user_id);
+//         $success = mysqli_stmt_execute($stmt);
+//         mysqli_stmt_close($stmt);
+//         return $success;
+//     }
+//     return false;
+// }
+
+// hapus token "remember me" dari database (logout)
 function clear_user_remember_token($user_id)
 {
     global $con;
-    $stmt = mysqli_prepare($con, "UPDATE user SET remember_token = NULL, remember_token_expires = NULL WHERE id = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $user_id);
-        $success = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        return $success;
-    }
-    return false;
-}
 
+    $user_id_safe = (int)$user_id;
+
+    $sql = "UPDATE user SET remember_token = NULL, remember_token_expires = NULL WHERE id = $user_id_safe";
+
+    $success = mysqli_query($con, $sql);
+
+    return $success;
+}
 // User and Followers
+// function is_following($user_id, $id_follow)
+// {
+//     global $con;
+//     $stmt = mysqli_prepare($con, "SELECT 1 FROM follow WHERE user_id = ? AND id_follow = ?");
+//     if ($stmt === false) {
+//         error_log("Prepare failed: " . mysqli_error($con)); // Untuk debugging internal
+//         return false;
+//     }
+//     mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow); // "ii" berarti dua integer
+//     mysqli_stmt_execute($stmt);
+//     mysqli_stmt_store_result($stmt);
+//     $num_rows = mysqli_stmt_num_rows($stmt);
+//     mysqli_stmt_close($stmt);
+//     return $num_rows > 0;
+// }
+
 function is_following($user_id, $id_follow)
 {
     global $con;
-    $stmt = mysqli_prepare($con, "SELECT 1 FROM follow WHERE user_id = ? AND id_follow = ?");
-    if ($stmt === false) {
-        error_log("Prepare failed: " . mysqli_error($con)); // Untuk debugging internal
-        return false;
+    // Penting: Pastikan $user_id dan $id_follow sudah di-casting ke integer
+    // untuk mencegah SQL Injection paling dasar pada query ini.
+    $user_id_safe = (int)$user_id;
+    $id_follow_safe = (int)$id_follow;
+
+    $sql = "SELECT COUNT(*) as total FROM follow WHERE user_id = $user_id_safe AND id_follow = $id_follow_safe";
+    $result = mysqli_query($con, $sql);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        mysqli_free_result($result); // Bebaskan memori hasil query
+        return $row['total'] > 0;
     }
-    mysqli_stmt_bind_param($stmt, "ii", $user_id, $id_follow); // "ii" berarti dua integer
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_store_result($stmt);
-    $num_rows = mysqli_stmt_num_rows($stmt);
-    mysqli_stmt_close($stmt);
-    return $num_rows > 0;
+    return false; // Mengembalikan false jika ada error query
 }
 
 //Follow
-function get_followers($user_id, $search = ''){
+function get_followers($user_id, $search = '')
+{
     global $con;
-    $user_id = (int)$user_id;
 
-    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.user_id = u.id WHERE f.id_follow = ?";
-    $params = "i"; // Parameter untuk user_id
+    $user_id_safe = (int)$user_id;
 
-    if ($search) {
-        $sql .= " AND u.username LIKE ?";
-        $params .= "s"; // "s" untuk string
-        $search_param = '%' . $search . '%'; // Tambahkan wildcard
-    }
-
-    $stmt = mysqli_prepare($con, $sql);
-
-    if ($stmt === false) { // Penanganan error jika prepare gagal
-        error_log("Error preparing statement for get_followers: " . mysqli_error($con));
-        return false; // Mengembalikan false atau array kosong sebagai indikasi error
-    }
+    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.user_id = u.id WHERE f.id_follow = $user_id_safe";
 
     if ($search) {
-        mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
-    } else {
-        mysqli_stmt_bind_param($stmt, $params, $user_id);
+        $search_safe = mysqli_real_escape_string($con, '%' . $search . '%');
+        $sql .= " AND u.username LIKE '$search_safe'";
     }
 
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
-    // Tidak perlu mysqli_stmt_close($stmt) di sini, biarkan pemanggil menutup jika perlu,
-    // atau biarkan PHP membersihkannya setelah script selesai.
+    $result = mysqli_query($con, $sql);
+
+    if ($result === false) {
+        error_log("Error executing query for get_followers: " . mysqli_error($con));
+        return false;
+    }
+
     return $result;
 }
 
-function get_following($user_id, $search = ''){
+function get_following($user_id, $search = '')
+{
     global $con;
-    $user_id = (int)$user_id;
 
-    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.id_follow = u.id WHERE f.user_id = ?";
-    $params = "i";
+    $user_id_safe = (int)$user_id;
 
-    if ($search) {
-        $sql .= " AND u.username LIKE ?";
-        $params .= "s";
-        $search_param = '%' . $search . '%';
-    }
-
-    $stmt = mysqli_prepare($con, $sql);
-
-    if ($stmt === false) { // Penanganan error jika prepare gagal
-        error_log("Error preparing statement for get_following: " . mysqli_error($con));
-        return false; // Mengembalikan false atau array kosong sebagai indikasi error
-    }
+    $sql = "SELECT u.id, u.username, u.profilepic FROM follow AS f JOIN user AS u ON f.id_follow = u.id WHERE f.user_id = $user_id_safe";
 
     if ($search) {
-        mysqli_stmt_bind_param($stmt, $params, $user_id, $search_param);
-    } else {
-        mysqli_stmt_bind_param($stmt, $params, $user_id);
+        $search_safe = mysqli_real_escape_string($con, '%' . $search . '%');
+        $sql .= " AND u.username LIKE '$search_safe'";
     }
 
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt); // Ini akan mengembalikan mysqli_result object
+    $result = mysqli_query($con, $sql);
+
+    if ($result === false) {
+        error_log("Error executing query for get_following: " . mysqli_error($con));
+        return false;
+    }
+
     return $result;
-} 
+}
+
 
 function loadDiscography()
 {
@@ -288,57 +377,61 @@ function search_users($term)
 
 // hapus akun
 function delete_user($user_id) {
-    global $con; // Pastikan $con tersedia di sini
+    global $con;
 
     if (!isset($con) || !is_object($con) || !mysqli_ping($con)) {
         error_log("Koneksi database tidak valid di delete_user()");
         return false;
     }
 
-    $user_id = (int)$user_id;
+    $user_id_safe = (int)$user_id;
 
-    // Mulai transaksi (tetap bagus untuk praktik terbaik, meskipun hanya satu DELETE)
     mysqli_begin_transaction($con);
 
     try {
-        // Dapatkan nama file profil picture sebelum menghapus user
         $profilepic_name = null;
-        $stmt_pic = mysqli_prepare($con, "SELECT profilepic FROM user WHERE id = ?");
-        if ($stmt_pic === false) throw new Exception("Prepare failed for profilepic select: " . mysqli_error($con));
-        mysqli_stmt_bind_param($stmt_pic, "i", $user_id);
-        mysqli_stmt_execute($stmt_pic);
-        mysqli_stmt_bind_result($stmt_pic, $profilepic_name_from_db);
-        mysqli_stmt_fetch($stmt_pic);
-        mysqli_stmt_close($stmt_pic);
-        $profilepic_name = $profilepic_name_from_db;
+        $sql_select_pic = "SELECT profilepic FROM user WHERE id = $user_id_safe";
+        $result_pic = mysqli_query($con, $sql_select_pic);
 
-        // Hapus user dari tabel 'user'
-        $stmt = mysqli_prepare($con, "DELETE FROM user WHERE id = ?");
-        if ($stmt === false) throw new Exception("Prepare failed for user delete: " . mysqli_error($con));
-        mysqli_stmt_bind_param($stmt, "i", $user_id);
-        mysqli_stmt_execute($stmt);
-        $deleted_rows = mysqli_stmt_affected_rows($stmt);
-        mysqli_stmt_close($stmt);
+        if ($result_pic === false) {
+            throw new Exception("Query failed for profilepic select: " . mysqli_error($con));
+        }
 
-        // Jika user berhasil dihapus dari tabel user dan memiliki gambar profil non-default, hapus file gambar
+        if (mysqli_num_rows($result_pic) > 0) {
+            $row_pic = mysqli_fetch_assoc($result_pic);
+            $profilepic_name = $row_pic['profilepic'];
+        }
+        mysqli_free_result($result_pic);
+
+        $sql_delete_user = "DELETE FROM user WHERE id = $user_id_safe";
+        $success_delete_user = mysqli_query($con, $sql_delete_user);
+
+        if ($success_delete_user === false) {
+            throw new Exception("Query failed for user delete: " . mysqli_error($con));
+        }
+
+        $deleted_rows = mysqli_affected_rows($con);
+
         if ($deleted_rows > 0 && $profilepic_name && $profilepic_name !== 'default.png') {
-            $file_path = '../uploads/' . $profilepic_name; // Pastikan path ini benar!
+            $file_path = '../uploads/' . $profilepic_name;
             if (file_exists($file_path)) {
-                unlink($file_path);
-                error_log("Profile picture deleted: " . $file_path); // Untuk debugging
+                if (unlink($file_path)) {
+                    error_log("Profile picture deleted: " . $file_path);
+                } else {
+                    error_log("Failed to delete profile picture file: " . $file_path);
+                }
             } else {
                 error_log("Profile picture not found for deletion: " . $file_path);
             }
         }
 
-        // Commit transaksi jika semua operasi berhasil
         mysqli_commit($con);
-        return true; // Berhasil dihapus
+        return true;
+
     } catch (Exception $e) {
-        // Rollback transaksi jika ada operasi yang gagal
         mysqli_rollback($con);
-        error_log("Error deleting user " . $user_id . ": " . $e->getMessage()); // Log error ke log server
-        return false; // Gagal dihapus
+        error_log("Error deleting user " . $user_id . ": " . $e->getMessage());
+        return false;
     }
 }
 ?>

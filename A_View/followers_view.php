@@ -1,3 +1,8 @@
+<?php
+    include_once '../A_Controller/followers_controller.php';
+    global $result, $target_id, $type, $search, $logged_in_user;
+?>
+
 <link rel="stylesheet" href="../A_View/css/profile.css">
 <link rel="stylesheet" href="../A_View/css/followers_view.css">
 
@@ -10,14 +15,19 @@
  
 <div class="all-user-list">
     <div id="userListContainer" class="user-list-container">
+
+        <!-- $result tuh hasil query db dari followers_controller.php. cek ada baris ga -->
         <?php if (mysqli_num_rows($result) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
+
+                <!-- ini nampilin profilepic sm usn -->
                 <div class="user-list-item">
                     <img src="../uploads/<?= htmlspecialchars($row['profilepic'] ?? 'default.png'); ?>" alt="Profile Picture">
                     <div class="user-info">
                         <a href="main.php?page=profile&id=<?= $row['id'] ?>"><?= htmlspecialchars($row['username']) ?></a>
                     </div>
 
+                    <!-- masuk kondisi kalo user lagi ga liat profile diri sendiri -->
                     <?php if ($logged_in_user && $logged_in_user != $row['id']): ?>
                         <div class="follow-button-wrapper">
                             <?php if (!is_following($logged_in_user, $row['id'])): ?>
@@ -42,46 +52,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const userListContainer = document.getElementById('userListContainer');
 
-    if (searchForm && userListContainer) { // Pastikan elemen ada
+    if (searchForm && userListContainer) {
         searchForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Mencegah submit form default (agar tidak me-reload halaman)
+            event.preventDefault();
 
             const userId = searchForm.querySelector('input[name="user_id"]').value;
             const type = searchForm.querySelector('input[name="type"]').value;
             const searchQuery = searchForm.querySelector('input[name="search"]').value;
 
-            // Buat URL untuk permintaan AJAX ke controller PHP
-            // Tambahkan parameter `ajax=1` untuk memberitahu controller ini adalah request AJAX
-            const url = `../A_Controller/followers_controller.php?user_id=<span class="math-inline">\{encodeURIComponent\(userId\)\}&type\=</span>{encodeURIComponent(type)}&search=${encodeURIComponent(searchQuery)}&ajax=1`;
+            const url = ../A_Controller/followers_controller.php?user_id=${encodeURIComponent(userId)}&type=${encodeURIComponent(type)}&search=${encodeURIComponent(searchQuery)}&ajax=1;
 
             try {
-                // Kirim permintaan AJAX menggunakan Fetch API
                 const response = await fetch(url);
 
-                // Periksa apakah respons HTTP sukses (status 200 OK)
                 if (!response.ok) {
                     console.error(`HTTP error! Status: ${response.status}`);
                     userListContainer.innerHTML = '<p style="color: red; text-align: center; width: 100%;">Server error. Please try again.</p>';
-                    return; // Hentikan eksekusi jika ada error HTTP
+                    return; 
                 }
 
-                // Ambil respons sebagai teks (berisi HTML fragment dari controller)
                 const htmlContent = await response.text();
 
-                // Untuk debugging: tampilkan respons di konsol
                 console.log("AJAX Response HTML:", htmlContent);
 
-                // Perbarui konten kontainer daftar user dengan HTML yang diterima
                 userListContainer.innerHTML = htmlContent;
 
-                // Catatan: Jika Anda memiliki skrip terpisah untuk menginisialisasi tombol follow/unfollow,
-                // dan skrip itu tidak menggunakan event delegation (misalnya jQuery .on()),
-                // Anda mungkin perlu memanggil ulang fungsi inisialisasi di sini
-                // karena elemen tombol baru ditambahkan ke DOM.
-                // Contoh: initializeFollowButtons();
-
             } catch (error) {
-                // Tangani error jika permintaan AJAX itu sendiri gagal (misalnya, masalah jaringan)
                 console.error('Error during search AJAX request:', error);
                 userListContainer.innerHTML = '<p style="color: red; text-align: center; width: 100%;">Failed to load results. Please check your network connection.</p>';
             }
@@ -90,8 +86,4 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn("searchForm or userListContainer not found in the DOM.");
     }
 });
-
-// Jika file follow.js Anda menggunakan jQuery seperti $(document).on('click', '.follow-btn', ...),
-// maka Anda TIDAK perlu memanggil ulang fungsi inisialisasi di atas karena event delegation sudah menangani.
-// Jika tidak, Anda mungkin perlu membuat fungsi inisialisasi follow button terpisah dan memanggilnya di sini.
 </script>

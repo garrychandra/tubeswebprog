@@ -22,6 +22,7 @@
 
         <div class="form-group">
             <label for="profilepic">Profile Picture:</label>
+            <!-- cek user udh punya profilepic blm. kl ada ditampilin, kl gada dikasih yg default -->
             <?php if (!empty($user['profilepic'])): ?>
                 <img src="../uploads/<?= htmlspecialchars($user['profilepic']) ?>" alt="Current Profile Picture" class="profile-pic-preview">
                 <br>
@@ -29,8 +30,10 @@
                 <img src="../uploads/default.png" alt="Default Profile Picture" class="profile-pic-preview">
                 <br>
             <?php endif; ?>
+
             <input type="file" id="profilepic" name="profilepic" accept="image/jpeg, image/png, image/gif">
-            <small>Max 2MB. JPG, JPEG, PNG, GIF only.</small>
+
+            <small>JPG, JPEG, PNG, GIF only.</small>
         </div>
 
         <button type="submit" class="btn-submit">Update Profile</button>

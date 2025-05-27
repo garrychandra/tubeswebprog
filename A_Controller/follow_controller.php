@@ -2,6 +2,7 @@
 require_once '../A_Model/config.php';
 require_once '../A_Model/user_model.php';
 
+// cek udh login blm
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../A_View/main.php?page=login");
     exit();
@@ -11,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $follower_id = (int)$_SESSION['user_id'];
     $followed_id = (int)$_POST['followed_id'];
 
+    // validasi : biar user gbsa follow akunnya sendiri
     if ($follower_id === $followed_id) {
         $_SESSION['message'] = "You cannot follow or unfollow yourself";
         $_SESSION['message_type'] = "error";
@@ -18,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $action = $_POST['action'] ?? '';
+    $action = $_POST['action'] ?? ''; // follow ato unfoll
 
     if ($action === 'follow') {
         if (add_follow($follower_id, $followed_id)) {
@@ -40,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['message'] = "Invalid action.";
         $_SESSION['message_type'] = "error";
     }
-
+    // diarahin ke profile user yg di foll / unfoll
     header("Location: ../A_View/main.php?page=profile&user_id=" . $followed_id);
     exit();
 
-} else {
+} else { 
     header("Location: ../A_View/main.php?page=profile");
     exit();
 }
