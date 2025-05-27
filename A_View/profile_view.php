@@ -1,3 +1,5 @@
+<a href="main.php?page=searchall">Search</a>
+
 <div class="profile-container">
     <div class="profile-header">
 

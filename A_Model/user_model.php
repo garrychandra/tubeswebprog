@@ -351,6 +351,7 @@ function get_following($user_id, $search = '')
 }
 
 
+
 function loadDiscography()
 {
     $xml = simplexml_load_file('../xml/discography.xml');
@@ -374,6 +375,46 @@ function search_users($term)
     }
     return mysqli_query($con, $sql);
 }
+
+function get_followers2($user_id, $term = '') {
+    global $conn;
+    $user_id = (int)$user_id;
+    $term = mysqli_real_escape_string($conn, $term);
+
+    $sql = "
+        SELECT u.id, u.username, u.profilepic, u.role
+        FROM follow f
+        JOIN users u ON u.id = f.user_id
+        WHERE f.id_follow = $user_id
+          AND u.username LIKE '%$term%'
+    ";
+    return mysqli_query($conn, $sql);
+}
+
+function get_following2($user_id, $term = '') {
+    global $conn;
+    $user_id = (int)$user_id;
+    $term = mysqli_real_escape_string($conn, $term);
+
+    $sql = "
+        SELECT u.id, u.username, u.profilepic, u.role
+        FROM follow f
+        JOIN users u ON u.id = f.id_follow
+        WHERE f.user_id = $user_id
+          AND u.username LIKE '%$term%'
+    ";
+    return mysqli_query($conn, $sql);
+}
+
+function is_following2($my_id, $profile_id) {
+    global $conn;
+    $sql = "SELECT 1 FROM follow WHERE user_id = $my_id AND id_follow = $profile_id LIMIT 1";
+    $res = mysqli_query($conn, $sql);
+    return mysqli_num_rows($res) > 0;
+}
+
+
+
 
 // hapus akun
 function delete_user($user_id) {

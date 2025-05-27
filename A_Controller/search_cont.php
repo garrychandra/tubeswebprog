@@ -26,7 +26,7 @@ if (mysqli_num_rows($search_result) > 0):
         <?php endif; ?>
 
         <?php if ($logged_in): ?>
-            <form action="../A_Controller/follow_controller.php" method="POST" style="display:inline;">
+            <form action="../A_Controller/follow2_controller.php" method="POST" style="display:inline;">
                 <input type="hidden" name="followed_id" value="<?= $profile_id ?>">
                 <input type="hidden" name="action" value="<?= $is_following ? 'unfollow' : 'follow' ?>">
                 <button type="submit"><?= $is_following ? 'Unfollow' : 'Follow' ?></button>

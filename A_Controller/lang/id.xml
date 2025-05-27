@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+    <nav>
+        <welcome>Selamat datang</welcome>
+        <home>Beranda</home>
+        <members>Anggota</members>
+        <discography>Diskografi</discography>
+        <singles>Single</singles>
+        <eps>Mini Album</eps>
+        <albums>Album</albums>
+        <forum>Forum</forum>
+        <admin>Admin</admin>
+        <profile>Profil</profile>
+        <logout>Keluar</logout>
+        <updates>Pembaruan</updates>
+        <login>Masuk</login>
+    </nav>
+</lang>

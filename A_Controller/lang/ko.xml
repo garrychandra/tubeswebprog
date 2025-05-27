@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lang>
+    <nav>
+        <welcome>환영합니다</welcome>
+        <home>홈</home>
+        <members>멤버</members>
+        <discography>디스코그래피</discography>
+        <singles>싱글</singles>
+        <eps>미니 앨범</eps>
+        <albums>앨범</albums>
+        <forum>포럼</forum>
+        <admin>관리자</admin>
+        <profile>프로필</profile>
+        <logout>로그아웃</logout>
+        <updates>업데이트</updates>
+        <login>로그인</login>
+    </nav>
+</lang>

@@ -1,4 +1,4 @@
-<nav>
+<nav class="navbar">
     <ul>
         <li><a href="main.php?page=home"><?= $lang_data->nav->home ?></a></li>
         <li><a href="main.php?page=members"><?= $lang_data->nav->members ?></a></li>

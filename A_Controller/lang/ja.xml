@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+    <nav>
+        <welcome>ようこそ</welcome>
+        <home>ホーム</home>
+        <members>メンバー</members>
+        <discography>ディスコグラフィー</discography>
+        <singles>シングル</singles>
+        <eps>ミニアルバム</eps>
+        <albums>アルバム</albums>
+        <forum>フォーラム</forum>
+        <admin>管理者</admin>
+        <profile>プロフィール</profile>
+        <logout>ログアウト</logout>
+        <updates>更新</updates>
+        <login>ログイン</login>
+    </nav>
+</lang>
