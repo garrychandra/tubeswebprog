@@ -351,7 +351,7 @@ function render_discography_comments($forum_name, $con) {
     if ($forum_id) {
         echo "<div style='display: flex; flex-direction: column; align-items: center; width: 100%;'>";
         // Fetch comments
-        $comments = mysqli_query($con, "SELECT fp.*, u.username FROM forum_posting fp JOIN user u ON fp.user_id = u.id WHERE fp.forum_id = $forum_id ORDER BY fp.date_posted ASC");
+        $comments = mysqli_query($con, "SELECT fp.*, u.username FROM forum_posting fp JOIN user u ON fp.user_id = u.id WHERE fp.forum_id = $forum_id AND u.role NOT LIKE 'banned' ORDER BY fp.date_posted ASC");
         echo "<div class='album-comments' id='comments-{$forum_id}'>";
         echo "<h2>" . htmlspecialchars($forum_name) . "</h2>";
         while ($c = mysqli_fetch_assoc($comments)) {
