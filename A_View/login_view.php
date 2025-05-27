@@ -1,3 +1,10 @@
+<?php
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old']);
+?>
+
+
 <div id="isi">
 
     <div class="judul">
@@ -6,19 +13,27 @@
 
     <div class="form-wrapper">
 
-        <p id="error-message"></p>
+        <?php if (!empty($errors['login'])): ?>
+            <small> <?= htmlspecialchars($errors['login']) ?></small>
+        <?php endif; ?>
         <!-- kalo ada yg belom keisi, nanti validasinya muncul di sini -->
 
         <form id="form" action="../A_Controller/login_controller.php" method="POST">
             <h3>Log In</h3>
             <div>
-                <label for="email">Email or Username</label>
-                <input type="text" name="email" id="email-input" placeholder="Input your e-mail!" required>
+                <label for="email">Email</label>
+                <?php if (!empty($errors['email'])): ?>
+                    <small><?= htmlspecialchars($errors['email']); ?></small>
+                <?php endif ?>
+                <input type="text" name="email" id="email-input" placeholder="Input your e-mail!" value="<?= htmlspecialchars($old['email'] ?? ''); ?>">
             </div>
 
             <div>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password-input" placeholder="Input your password!" required>
+                <?php if (!empty($errors['password'])): ?>
+                    <small><?= htmlspecialchars($errors['password']) ?></small>
+                <?php endif; ?>
+                <input type="password" name="password" id="password-input" placeholder="Input your password!">
             </div>
 
             <button type="submit" class="btn" name="log-btn">Log In</button>

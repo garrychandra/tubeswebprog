@@ -1,3 +1,11 @@
+<?php
+
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old']);
+?>
+
+
 <div id="isi">
 
     <div class="judul">
@@ -15,17 +23,26 @@
 
             <div>
                 <label for="username-input">Username</label>
-                <input type="text" name="username" id="username-input">
+                <?php if (!empty($errors['username'])): ?>
+                    <small><?= htmlspecialchars($errors['username']) ?></small>
+                <?php endif; ?>
+                <input type="text" name="username" id="username-input" value="<?= htmlspecialchars($old['username'] ?? '') ?>">
             </div>
 
             <div>
                 <label for="profile_pic-input">Picture Profile</label>
+                <?php if (!empty($errors['profilepic'])): ?>
+                    <small><?= htmlspecialchars($errors['profilepic']) ?></small>
+                <?php endif; ?>
                 <input type="file" name="profilepic" id="profile_pic-input">
             </div>
 
             <div>
                 <label for="bio-input">Bio</label>
-                <textarea name="bio" id=""></textarea>    
+                <?php if (!empty($errors['bio'])): ?>
+                    <small><?= htmlspecialchars($errors['bio']) ?></small>
+                <?php endif; ?>
+                <textarea name="bio" id=""><?= htmlspecialchars($old['bio'] ?? '') ?></textarea>
             </div>
 
             <button type="submit" class="btn" name="signup2-btn">Register</button>

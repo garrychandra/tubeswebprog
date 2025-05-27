@@ -18,14 +18,13 @@
         <?php endif; ?>
 
         <?php if (!empty($_SESSION['user_id'])): ?>
-            <?php if ($_SESSION['is_admin'] == 'admin'): ?>
+            <?php if (isset($_SESSION['is_admin'])): ?>
                 <li><a href="">ADMIN</a></li>    
             <?php endif; ?>
             <li><a href="main.php?page=profile">PROFILE</a></li>
             <li><a href="main.php?page=logout">LOGOUT</a></li>
             <?php else: ?>
             <li><a href="main.php?page=updates">UPDATES</a></li> <li><a href="main.php?page=login">LOGIN</a></li>
-        <?php endif; ?>
-        
+        <?php endif; ?>  
     </ul>
 </nav>
