@@ -1,4 +1,5 @@
 <?php
+require_once '../A_Model/user_model.php';
 $authors = loadAuthors();
 ?>
 

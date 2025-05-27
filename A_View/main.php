@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="../css/responsive-navbar.css">
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
-    <link rel="stylesheet" href="../css/isiforum.css">
     <link rel="stylesheet" href="../css/authors.css">
     <link rel="stylesheet" href="../css/members.css">
     <link rel="stylesheet" href="../css/responsive_member.css">
@@ -27,6 +26,7 @@
     <link rel="stylesheet" href="../css/updates.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/followers_view.css">
+    <link rel="stylesheet" href="css/isiforum.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
