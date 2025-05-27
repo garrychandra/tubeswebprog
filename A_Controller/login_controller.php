@@ -34,8 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['log-btn'])) {
     $user = get_user_by_email($email);
 
     if ($user && password_verify($password, $user['password'])) {
+
+        if($user['role'] === 'banned') {
+            $errors['login'] = "Your account is banned";
+            $_SESSION['errors'] = $errors;
+            $_SESSION['old'] = $old;
+            header("Location: ../A_View/main.php?page=login");
+            exit;
+        } 
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['is_admin'] = ($user['role'] === 'admin');
+        $_SESSION['is_admin'] = $user['role'];
 
         if (isset($_POST['remember'])) {
             $token = bin2hex(random_bytes(32));
