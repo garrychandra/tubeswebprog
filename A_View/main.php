@@ -1,5 +1,8 @@
 <?php
+    session_start();
     require_once '../A_Model/config.php';
+    require_once '../A_Controller/language_controller.php';
+    $theme = $_COOKIE['theme'] ?? 'dark';
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +32,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <style>
+
+        :root{
+            --main-color:  #1a1a1a;
+        }
+
+        body.light-theme {
+            --main-color: #faf0dc; 
+        }
         body {
             color: white;
-            background-color: #1a1a1a;
+            background-color: var(--main-color) ;
         }
         .alert {
             padding: 10px;
@@ -66,7 +77,7 @@
     <script src="../script/discography.js"></script>
 </head>
 
-<body>
+<body class="<?= $theme === 'light' ? 'light-theme': '' ?>">
     <?php
         include 'header.php';
         include 'navbar.php';
@@ -123,7 +134,7 @@
             case "followers":
                 include '../A_Controller/followers_controller.php';
                 break;
-                case "following";
+            case "following";
                 include '../A_Controller/followers_controller.php';
                 break;
             case "logout":

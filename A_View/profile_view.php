@@ -26,6 +26,7 @@
     <div class="profile-actions">
         <?php if($is_own_profile): ?>
             <a href="main.php?page=edit_profile" class="edit-button">Edit Profile</a>
+            <a href="main.php?page=settings">Settings</a>
             <button id="deleteAccountBtn" class="delete-account-btn">Delete Account</button>
             <form action="../A_Controller/logout_controller.php" method="POST" style="display:inline;">
                 <button type="submit" name="confirm_logout">Log out</button>
