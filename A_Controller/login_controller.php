@@ -11,7 +11,7 @@
         
         if($user){
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['is_admin'] = $user['is_admin'];
+            $_SESSION['is_admin'] = $user['role'];
 
             if (isset($_POST['remember'])) {
                 $token = bin2hex(random_bytes(32)); // bikin tokennya
