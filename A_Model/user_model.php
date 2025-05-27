@@ -371,4 +371,12 @@ function render_discography_comments($forum_name, $con) {
         echo "<div class='album-comments'>No comment forum found for this item.</div>";
     }
 }
+
+function loadAuthors() {
+    $xml = simplexml_load_file('../xml/authors.xml');
+    if ($xml === false) {
+        die('Failed to load authors XML file');
+    }
+    return $xml;
+}
 ?>

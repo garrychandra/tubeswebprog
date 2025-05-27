@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
     <link rel="stylesheet" href="../css/isiforum.css">
+    <link rel="stylesheet" href="../css/authors.css">
     <link rel="stylesheet" href="../css/members.css">
     <link rel="stylesheet" href="../css/responsive_member.css">
     <link rel="stylesheet" href="../css/discography.css">
@@ -96,6 +97,9 @@
             case "eps";
                 include 'discography_view.php';
                 echo "<script>location.hash = '#card_2';</script>"; // Scroll to the element
+                break;
+            case "author":
+                include 'authors.php';
                 break;
             case "albums":
                 include 'discography_view.php';
