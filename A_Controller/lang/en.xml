@@ -1,0 +1,18 @@
+<lang>
+    <nav>
+        
+    <welcome>Welcome</welcome>
+        <home>Home</home>
+        <members>Members</members>
+        <discography>Discography</discography>
+        <singles>Singles</singles>
+        <eps>EPs</eps>
+        <albums>Albums</albums>
+        <forum>Forum</forum>
+        <admin>Admin</admin>
+        <profile>Profile</profile>
+        <logout>Logout</logout>
+        <updates>Updates</updates>
+        <login>Login</login>
+    </nav>
+</lang>

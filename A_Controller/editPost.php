@@ -2,8 +2,8 @@
 include_once "../A_Model/config.php";
 
 $admin = false;
-if (isset($_SESSION['admin'])) {
-    $admin = $_SESSION['admin'];
+if (isset($_SESSION['is_admin'])) {
+    $admin = $_SESSION['is_admin'];
 }
 
 $post_id = $_POST['post_id'];

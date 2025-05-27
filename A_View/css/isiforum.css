@@ -1,42 +1,43 @@
 .forum-post {
-    /* display: flex;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 70%;
-    border: 1px solid white;
-    color: white;
-    margin: auto; */
-    max-width: 500px;
-    padding: 70px;
-    padding-top: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 25%;
-    font-family: Arial, sans-serif;
+    display: flex;
+    max-width: 800px;
+    margin: 20px auto;
     background: linear-gradient(#D7D3BF, #ECEBDE, #C1BAA1);
     color: #3C3D37;
     box-shadow: 0px 0px 30px white;
 }
  
 .user-info {
-    /* margin-right: 20px;
-    float: left;
-    border: 1px solid white; */
-    max-width: 500px;
-    padding: 70px;
-    padding-top: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 25%;
-    font-family: Arial, sans-serif;
+    flex: 0 0 200px; /* Fixed width for user info */
+    padding: 20px;
     background: linear-gradient(#D7D3BF, #ECEBDE, #C1BAA1);
+    border-right: 1px solid #C1BAA1;
+    text-align: center;
+}
+
+.user-info img.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-info a {
+    display: block;
+    margin: 5px 0;
     color: #3C3D37;
-    box-shadow: 0px 0px 30px white;
-    }
+    text-decoration: none;
+}
 
 .post-content {
-    width: 100%;
+    flex: 1;
+    padding: 20px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content to top and actions to bottom */
 }
+
 
 .attachment-image {
     width: 350px;         /* Increase width as needed */
@@ -64,36 +65,81 @@
 }
 
 
-.post-actions {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: right;
-    float: right;
-
-}
-
 .reply {
-    margin-top: 20px;
-    width: 70%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
     border: 1px solid white;
     color: white;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center children horizontally */
-    padding: 20px;
     background: transparent;
 }
 
-input[type="submit"] {
+/* Make sure forms don't break the layout */
+.follow-btn, form {
+    margin: 5px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .forum-post {
+        flex-direction: column;
+    }
+    
+    .user-info {
+        flex: none;
+        border-right: none;
+        border-bottom: 1px solid #C1BAA1;
+    }
+}
+
+.post-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    margin-top: auto; /* Pushes it to bottom if content is shorter than container */
+}
+
+.post-actions button,
+.post-actions a {
     padding: 8px 16px;
-    border: 1px solid #ccc;
-    color: black;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-    min-width: 80px;
-    min-height: 32px;
-    background-color: white;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #da190b;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .post-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .post-actions button,
+    .post-actions a {
+        width: 100%;
+        margin: 5px 0;
+    }
 }

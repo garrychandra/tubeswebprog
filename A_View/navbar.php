@@ -1,30 +1,29 @@
-
 <nav>
     <ul>
-        <li><a href="main.php?page=home">HOME</a></li>
-        <li><a href="main.php?page=members">MEMBERS</a></li>
-        <li id="discography"><a href="main.php?page=discography">DISCOGRAPHY</a>
+        <li><a href="main.php?page=home"><?= $lang_data->nav->home ?></a></li>
+        <li><a href="main.php?page=members"><?= $lang_data->nav->members ?></a></li>
+        <li id="discography">
+            <a href="main.php?page=discography"><?= $lang_data->nav->discography ?></a>
             <div id="discography-dropdown-content">
-                <a href="main.php?page=single">Singles</a>
-                <a href="main.php?page=eps">EPs</a>
-                <a href="main.php?page=albums">Albums</a>
+                <a href="main.php?page=single"><?= $lang_data->nav->singles ?></a>
+                <a href="main.php?page=eps"><?= $lang_data->nav->eps ?></a>
+                <a href="main.php?page=albums"><?= $lang_data->nav->albums ?></a>
             </div>
         </li>
 
-        <?php
-            if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])):
-        ?>
-            <li><a href="main.php?page=forum">FORUM</a></li>
-        <?php endif; ?>
-
         <?php if (!empty($_SESSION['user_id'])): ?>
-            <?php if (isset($_SESSION['is_admin'])): ?>
-                <li><a href="">ADMIN</a></li>    
+            <li><a href="main.php?page=forum"><?= $lang_data->nav->forum ?></a></li>
+
+            <?php if (!empty($_SESSION['is_admin'])): ?>
+                <li><a href="main.php?page=admin"><?= $lang_data->nav->admin ?></a></li>    
             <?php endif; ?>
-            <li><a href="main.php?page=profile">PROFILE</a></li>
-            <li><a href="main.php?page=logout">LOGOUT</a></li>
-            <?php else: ?>
-            <li><a href="main.php?page=updates">UPDATES</a></li> <li><a href="main.php?page=login">LOGIN</a></li>
-        <?php endif; ?>  
+
+            <li><a href="main.php?page=profile"><?= $lang_data->nav->profile ?></a></li>
+            <li><a href="main.php?page=logout"><?= $lang_data->nav->logout ?></a></li>
+
+        <?php else: ?>
+            <li><a href="main.php?page=updates"><?= $lang_data->nav->updates ?></a></li>
+            <li><a href="main.php?page=login"><?= $lang_data->nav->login ?></a></li>
+        <?php endif; ?>
     </ul>
 </nav>

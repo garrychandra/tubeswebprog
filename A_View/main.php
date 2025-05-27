@@ -1,5 +1,8 @@
 <?php
+    session_start();
     require_once '../A_Model/config.php';
+    require_once '../A_Controller/language_controller.php';
+    $theme = $_COOKIE['theme'] ?? 'dark';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +18,7 @@
     <link rel="stylesheet" href="../css/responsive-navbar.css">
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
-    <link rel="stylesheet" href="../css/isiforum.css">
+    <link rel="stylesheet" href="../css/authors.css">
     <link rel="stylesheet" href="../css/members.css">
     <link rel="stylesheet" href="../css/responsive_member.css">
     <link rel="stylesheet" href="../css/discography.css">
@@ -23,14 +26,23 @@
     <link rel="stylesheet" href="../css/updates.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/followers_view.css">
+    <link rel="stylesheet" href="css/isiforum.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <style>
+
+        :root{
+            --main-color:  #1a1a1a;
+        }
+
+        body.light-theme {
+            --main-color: #faf0dc; 
+        }
         body {
             color: white;
-            background-color: #1a1a1a;
+            background-color: var(--main-color) ;
         }
         .alert {
             padding: 10px;
@@ -61,9 +73,11 @@
     <script src="js/editpost.js"></script>
     <script src="js/follow.js"></script>
     <script src="js/createforum.js"></script>
+    <script src="js/commentpost.js"></script>
+    <script src="../script/discography.js"></script>
 </head>
 
-<body>
+<body class="<?= $theme === 'light' ? 'light-theme': '' ?>">
     <?php
         include 'header.php';
         include 'navbar.php';
@@ -77,15 +91,18 @@
                 include 'discography_view.php';
                 break;
             case "single":
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_1';</script>"; // Scroll to the element
                 break;
             case "eps";
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_2';</script>"; // Scroll to the element
                 break;
+            case "author":
+                include 'authors.php';
+                break;
             case "albums":
-                include 'discography_view.html';
+                include 'discography_view.php';
                 echo "<script>location.hash = '#card_3';</script>"; // Scroll to the element
                 break;
             case "forum":
@@ -122,6 +139,9 @@
                 break;
             case "logout":
                 include 'logout_view.php';
+                break;
+            case "admin";
+                include 'admin_view.php';
                 break;
             default:
                 include 'home_view.html';

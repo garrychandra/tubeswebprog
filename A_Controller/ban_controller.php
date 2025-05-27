@@ -5,7 +5,7 @@ if($user_id){
     include_once "../A_Model/config.php";
     
 
-    $sql = "UPDATE user SET `role` = 'banned' WHERE id = ?";
+    $sql = "UPDATE user SET `role` = 'banned' WHERE id = $user_id";
     mysqli_query($con, $sql);
     $sql = "SELECT name FROM forum where forum_id = $fid";
     $result = mysqli_query($con,$sql);

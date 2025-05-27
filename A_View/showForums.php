@@ -1,7 +1,7 @@
 <?php
 include_once "../A_Model/config.php";
 
-$sql = "SELECT * FROM forum";
+$sql = "SELECT * FROM forum WHERE name NOT LIKE '%comment%'";
 $result = mysqli_query($con,$sql);
 
 echo "<div id='forums' style='color:white;'>"; 

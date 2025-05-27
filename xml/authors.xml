@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<authors>
+    <author>
+        <name>Shinta Nathalie Tantiwijaya</name>
+        <image>../images/nathalie.jpg</image>
+        <pages>
+            <page>
+                <title>Home</title>
+                <url>home.html</url>
+            </page>
+            <page>
+                <title>Authors</title>
+                <url>authors.html</url>
+            </page>
+            <page>
+                <title>Forum</title>
+                <url>forum1.html</url>
+            </page>
+        </pages>
+    </author>
+    <author>
+        <name>Peter Aldrin Tjandra</name>
+        <image>../images/peter.jpg</image>
+        <pages>
+            <page>
+                <title>Home</title>
+                <url>home.html</url>
+            </page>
+            <page>
+                <title>Discography</title>
+                <url>discography.html</url>
+            </page>
+            <page>
+                <title>Updates</title>
+                <url>updates.html</url>
+            </page>
+        </pages>
+    </author>
+    <author>
+        <name>Yemima Febriana Hartono</name>
+        <image>../images/yemima.jpg</image>
+        <pages>
+            <page>
+                <title>Home</title>
+                <url>home.html</url>
+            </page>
+            <page>
+                <title>Members</title>
+                <url>members.html</url>
+            </page>
+            <page>
+                <title>References</title>
+                <url>references.html</url>
+            </page>
+        </pages>
+    </author>
+    <author>
+        <name>Garry Alexander Chandra</name>
+        <image>../uploads/default.png</image>
+        <pages></pages>
+    </author>
+    <author>
+        <name>Varel Aurelius Setiawan</name>
+        <image>../uploads/default.png</image>
+        <pages></pages>
+    </author>
+    <author>
+        <name>Jovanna Finnalucita</name>
+        <image>../uploads/default.png</image>
+        <pages></pages>
+    </author>
+</authors>

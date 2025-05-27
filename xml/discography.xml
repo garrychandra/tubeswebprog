@@ -92,7 +92,7 @@
     </singles>
     <eps>
         <ep>
-            <id>wave</id>
+            <id>wave-ep</id>
             <title>wave 0.01</title>
             <year>2020</year>
             <cover>../images/w2e_wave_ep_cover.jpg</cover>
@@ -108,7 +108,7 @@
             <applemusic>https://music.apple.com/id/album/wave-0-01-ep/1760568548</applemusic>
         </ep>
         <ep>
-            <id>summer-flows</id>
+            <id>summer-flows-ep</id>
             <title>summer flows 0.02</title>
             <year>2020</year>
             <cover>../images/w2e_summer-flows_ep_cover.jpg</cover>
