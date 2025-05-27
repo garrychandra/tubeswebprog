@@ -1,38 +1,47 @@
 <?php
-    session_start();
+session_start();
+require_once '../A_Model/user_model.php';
 
-    require_once '../A_Model/user_model.php';
+$errors = [];
+$old = [];
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup1-btn'])){
-        $email = trim($_POST['email']);
-        $pass = trim($_POST['password']);
-        $repeated_pass = trim($_POST['rpassword']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup1-btn'])) {
+    $email = trim($_POST['email']);
+    $pass = trim($_POST['password']);
+    $repeated_pass = trim($_POST['rpassword']);
 
-        // validasi format email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['signup_error'] = "Email format unvalid";
-            header("Location: ../A_View/main.php?page=signup1");
-            exit();
-        }
+    $old['email'] = $email;
 
-        // validasi email udh kedaftar
-        if (get_user_by_email($email)) {
-            $_SESSION['signup_error'] = "Email is already in use";
-            header("Location: ../A_View/main.php?page=signup1");
-            exit();
-        }
+    // Email validations
+    if (empty($email)) {
+        $errors['email'] = "Email cannot be empty";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid email format";
+    } elseif (get_user_by_email($email)) {
+        $errors['email'] = "Email is already used";
+    }
 
-        // validasi pass
-        if($pass !== $repeated_pass){ 
-            $_SESSION['signup_error'] = "Password doesn't match";
-            header("Location: ../A_View/main.php?page=signup1");
-            exit();
-        }
+    // Password validations
+    if (empty($pass)) {
+        $errors['pass'] = "Password cannot be empty";
+    } elseif (strlen($pass) < 6) {
+        $errors['pass'] = "Password must be at least 6 characters";
+    }
 
+    if ($pass !== $repeated_pass) {
+        $errors['rpassword'] = "Passwords do not match";
+    }
+
+    if (!empty($errors)) {
+        // Save error & old data
+        $_SESSION['errors'] = $errors;
+        $_SESSION['old'] = $old;
+        header("Location: ../A_View/main.php?page=signup1");
+        exit;
+    } else {
         $_SESSION['signup_email'] = $email;
-        $_SESSION['signup_password'] = $pass;
-
+        $_SESSION['signup_password'] = password_hash($pass, PASSWORD_DEFAULT); // secure
         header("Location: ../A_View/main.php?page=signup2");
         exit();
     }
-?>
+}

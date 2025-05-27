@@ -1,3 +1,9 @@
+<?php
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old']);
+?>
+
 <div id="isi">
 
     <div class="judul">
@@ -15,17 +21,25 @@
 
             <div>
                 <label for="email-input">Email</label>
-                <input type="email" name="email" id="email-input" placeholder="Input your e-mail!" required>
+                <?php if (!empty($errors['email'])): ?>
+                    <small><?= htmlspecialchars($errors['email']); ?></small>
+                <?php endif; ?>
+                <input type="email" name="email" id="email-input" placeholder="Input your e-mail!" value="<?= htmlspecialchars($old['email']?? ''); ?>">
             </div>
 
             <div>
                 <label for="password-input">Password</label>
-                <input type="password" name="password" id="password-input" placeholder="Input your password!"
-                    required>
+                <?php if (!empty($errors['pass'])): ?>
+                    <small><?= htmlspecialchars($errors['pass']); ?></small>
+                <?php endif; ?>
+                <input type="password" name="password" id="password-input" placeholder="Input your password!">
             </div>
 
             <div>
                 <label for="rpassword-input">Repeat Password</label>
+                <?php if (!empty($errors['rpassword'])): ?>
+                    <small><?= htmlspecialchars($errors['rpassword']); ?></small>
+                <?php endif; ?>
                 <input type="password" name="rpassword" id="rpassword-input">
             </div>
 
