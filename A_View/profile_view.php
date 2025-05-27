@@ -25,6 +25,8 @@
     }
 </style>
 
+<a href="search_view.php">Search Users</a>
+
 <div class="profile-container">
     <div class="profile-header">
         <img src="../uploads/<?= htmlspecialchars($user['profilepic'] ?? 'default.png')?>" alt="Profile Picture" class="profile-pic" width='100' height="100">
