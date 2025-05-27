@@ -279,9 +279,9 @@ function search_users($term)
     global $con;
     $term = escape($term);
     if ($term !== '') {
-        $sql = "SELECT username, profilepic, role FROM user WHERE username LIKE '%$term%' LIMIT 5";
+        $sql = "SELECT id, username, profilepic, role FROM user WHERE username LIKE '%$term%' LIMIT 5";
     } else {
-        $sql = "SELECT username, profilepic, role FROM user WHERE role = 'admin' LIMIT 5";
+        $sql = "SELECT id, username, profilepic, role FROM user WHERE role = 'admin' LIMIT 5";
     }
     return mysqli_query($con, $sql);
 }
