@@ -7,32 +7,34 @@
     <input type="text" name="search" placeholder="Search username..." value="<?= htmlspecialchars($search) ?>">
     <button type="submit">Search</button>
 </form>
-
-<div id="userListContainer" class="user-list-container">
-    <?php if (mysqli_num_rows($result) > 0): ?>
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <div class="user-list-item">
-                <img src="../uploads/<?= htmlspecialchars($row['profilepic'] ?? 'default.png'); ?>" alt="Profile Picture">
-                <div class="user-info">
-                    <a href="main.php?page=profile&id=<?= $row['id'] ?>"><?= htmlspecialchars($row['username']) ?></a>
-                </div>
-
-                <?php if ($logged_in_user && $logged_in_user != $row['id']): ?>
-                    <div class="follow-button-wrapper">
-                        <?php if (!is_following($logged_in_user, $row['id'])): ?>
-                            <button class='follow-btn' data-user-id="<?= htmlspecialchars($row['id']) ?>"
-                                data-follow='1'>Follow</button>
-                        <?php else: ?>
-                            <button class='follow-btn' data-user-id="<?= htmlspecialchars($row['id']) ?>"
-                                data-follow='0'>Unfollow</button>
-                        <?php endif; ?>
+ 
+<div class="all-user-list">
+    <div id="userListContainer" class="user-list-container">
+        <?php if (mysqli_num_rows($result) > 0): ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <div class="user-list-item">
+                    <img src="../uploads/<?= htmlspecialchars($row['profilepic'] ?? 'default.png'); ?>" alt="Profile Picture">
+                    <div class="user-info">
+                        <a href="main.php?page=profile&id=<?= $row['id'] ?>"><?= htmlspecialchars($row['username']) ?></a>
                     </div>
-                <?php endif; ?>
-            </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <p style="color: #ccc; text-align: center; width: 100%;">No <?= htmlspecialchars($type) ?> found.</p>
-    <?php endif; ?>
+
+                    <?php if ($logged_in_user && $logged_in_user != $row['id']): ?>
+                        <div class="follow-button-wrapper">
+                            <?php if (!is_following($logged_in_user, $row['id'])): ?>
+                                <button class='follow-btn' data-user-id="<?= htmlspecialchars($row['id']) ?>"
+                                    data-follow='1'>Follow</button>
+                            <?php else: ?>
+                                <button class='follow-btn' data-user-id="<?= htmlspecialchars($row['id']) ?>"
+                                    data-follow='0'>Unfollow</button>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p style="color: #ccc; text-align: center; width: 100%;">No <?= htmlspecialchars($type) ?> found.</p>
+        <?php endif; ?>
+    </div>
 </div>
 
 <script>

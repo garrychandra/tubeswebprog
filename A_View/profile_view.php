@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-=======
-<style>
-    html {
-        color: white;
-    }
-    .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    .alert-error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-    .alert-info {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border: 1px solid #bee5eb;
-    }
-</style>
-
-<a href="search_view.php">Search Users</a>
-
->>>>>>> 013da442fcf00fc11339624b633852d9c246b2d4
 <div class="profile-container">
     <div class="profile-header">
         <img src="../uploads/<?= htmlspecialchars($user['profilepic'] ?? 'default.png')?>" alt="Profile Picture" class="profile-pic" width='100' height="100">
@@ -58,6 +26,7 @@
     <div class="profile-actions">
         <?php if($is_own_profile): ?>
             <a href="main.php?page=edit_profile" class="edit-button">Edit Profile</a>
+            <button id="deleteAccountBtn" class="delete-account-btn">Delete Account</button>
             <form action="../A_Controller/logout_controller.php" method="POST" style="display:inline;">
                 <button type="submit" name="confirm_logout">Log out</button>
             </form>
@@ -88,3 +57,42 @@
         </div>
     */ ?>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('deleteAccountBtn');
+
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function() {
+            // Konfirmasi dengan pengguna sebelum menghapus
+            const confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+
+            if (confirmDelete) {
+                // Jika pengguna mengkonfirmasi, kirim permintaan POST ke controller hapus akun
+                fetch('../A_Controller/delete_account_controller.php', {
+                    method: 'POST', // Gunakan POST untuk operasi penghapusan
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    // Kirim user_id yang ingin dihapus melalui body POST
+                    body: 'user_id=<?= htmlspecialchars($user['id'] ?? '') ?>' // Menggunakan $user['id'] sesuai dengan kode Anda
+                })
+                .then(response => response.text()) // Ambil respons dari server sebagai teks
+                .then(data => {
+                    console.log("Server Response:", data); // Untuk debugging: lihat apa yang dikembalikan server
+                    if (data.trim() === 'success') { // Gunakan trim() untuk menghilangkan spasi/newline
+                        alert("Your account has been successfully deleted.");
+                        window.location.href = "main.php?page=logout"; // Redirect ke halaman logout/home
+                    } else {
+                        alert("Failed to delete account: " + data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("An error occurred while trying to delete your account. Please check console for details.");
+                });
+            }
+        });
+    }
+});
+</script>
