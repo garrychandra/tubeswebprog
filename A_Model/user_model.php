@@ -41,11 +41,11 @@ function insert_user($email, $password, $username, $profilepic, $bio)
     return mysqli_query($con, $sql);
 }
 
-function get_user_by_email($email)
+function get_user_by_email($login)
 {
     global $con;
-    $email = escape($email);
-    $sql = "SELECT * FROM user WHERE email = '$email'";
+    $login = escape($login);
+    $sql = "SELECT * FROM user WHERE (email = '$login' OR username = '$login')";
     $result = mysqli_query($con, $sql);
     return mysqli_fetch_assoc($result);
 }
@@ -340,5 +340,43 @@ function delete_user($user_id) {
         error_log("Error deleting user " . $user_id . ": " . $e->getMessage()); // Log error ke log server
         return false; // Gagal dihapus
     }
+}
+
+
+function render_discography_comments($forum_name, $con) {
+    $forum_q = mysqli_query($con, "SELECT forum_id FROM forum WHERE name='" . mysqli_real_escape_string($con, $forum_name) . "'");
+    $forum_row = mysqli_fetch_assoc($forum_q);
+    $forum_id = $forum_row ? $forum_row['forum_id'] : null;
+
+    if ($forum_id) {
+        echo "<div style='display: flex; flex-direction: column; align-items: center; width: 100%;'>";
+        // Fetch comments
+        $comments = mysqli_query($con, "SELECT fp.*, u.username FROM forum_posting fp JOIN user u ON fp.user_id = u.id WHERE fp.forum_id = $forum_id ORDER BY fp.date_posted ASC");
+        echo "<div class='album-comments' id='comments-{$forum_id}'>";
+        echo "<h2>" . htmlspecialchars($forum_name) . "</h2>";
+        while ($c = mysqli_fetch_assoc($comments)) {
+            echo "<div class='comment'><b>" . htmlspecialchars($c['username']) . ":</b> " . htmlspecialchars($c['content']) . "</div>";
+        }
+        echo "</div>";
+        
+        // AJAX Comment form
+        if (isset($_SESSION['user_id'])) {
+            echo "<form class='comment-form' data-forum-id='{$forum_id}'>";
+            echo "<input type='text' name='content' required style='background-color:white;'>";
+            echo "<button type='submit'>Comment</button>";
+            echo "</form>";
+        }
+        echo "</div>";
+    } else {
+        echo "<div class='album-comments'>No comment forum found for this item.</div>";
+    }
+}
+
+function loadAuthors() {
+    $xml = simplexml_load_file('../xml/authors.xml');
+    if ($xml === false) {
+        die('Failed to load authors XML file');
+    }
+    return $xml;
 }
 ?>

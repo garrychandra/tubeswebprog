@@ -6,6 +6,7 @@ $discography = loadDiscography();
 <main>
     <!-- Modals for Singles -->
     <?php foreach ($discography->singles->single as $single): ?>
+        <?php if (empty($single->id) || empty($single->title)) continue; ?>
     <dialog class="modal" id="modal-single-<?= $single->id ?>">
         <div class="modal-content">
             <img class="modals-picture" src="<?= $single->cover ?>" alt="">
@@ -18,12 +19,17 @@ $discography = loadDiscography();
                 <a href="<?= $single->spotify ?>"><img src="../images/spotify-icon.png"></a>
                 <a href="<?= $single->applemusic ?>"><img src="../images/apple-music-icon.png" alt=""></a>
             </div>
+            <?php
+            $forum_name = "Comments for Single: " . $single->title;
+            render_discography_comments($forum_name, $con);
+            ?>
         </div>
     </dialog>
     <?php endforeach; ?>
 
     <!-- Modals for EPs -->
     <?php foreach ($discography->eps->ep as $ep): ?>
+        <?php if (empty($ep->id) || empty($ep->title)) continue; ?>
     <dialog class="modal" id="modal-ep-<?= $ep->id ?>">
         <div class="modal-content">
             <img class="modals-picture" src="<?= $ep->cover ?>" alt="">
@@ -36,12 +42,17 @@ $discography = loadDiscography();
                 <a href="<?= $ep->spotify ?>"><img src="../images/spotify-icon.png"></a>
                 <a href="<?= $ep->applemusic ?>"><img src="../images/apple-music-icon.png" alt=""></a>
             </div>
+            <?php
+            $forum_name = "Comments for EP: " . $ep->title;
+            render_discography_comments($forum_name, $con);
+            ?>
         </div>
     </dialog>
     <?php endforeach; ?>
 
     <!-- Modals for Albums -->
     <?php foreach ($discography->albums->album as $album): ?>
+        <?php if (empty($album->id) || empty($album->title)) continue; ?>
     <dialog class="modal" id="modal-album-<?= $album->id ?>">
         <div class="modal-content">
             <img class="modals-picture" src="<?= $album->cover ?>" alt="">
@@ -54,6 +65,11 @@ $discography = loadDiscography();
                 <a href="<?= $album->spotify ?>"><img src="../images/spotify-icon.png"></a>
                 <a href="<?= $album->applemusic ?>"><img src="../images/apple-music-icon.png" alt=""></a>
             </div>
+
+            <?php
+            $forum_name = "Comments for Album: " . $album->title;
+            render_discography_comments($forum_name, $con);
+            ?>
         </div>
     </dialog>
     <?php endforeach; ?>
@@ -67,6 +83,7 @@ $discography = loadDiscography();
                 <br>
                 <div id="singles">
                     <?php foreach ($discography->singles->single as $single): ?>
+                        <?php if (empty($single->id) || empty($single->title)) continue; ?>
                     <div class="single" id="single-<?= $single->id ?>">
                         <img src="<?= $single->cover ?>">
                         <p class="releaseTitle"><?= $single->title ?></p>
@@ -85,6 +102,7 @@ $discography = loadDiscography();
                 <br>
                 <div id="eps">
                     <?php foreach ($discography->eps->ep as $ep): ?>
+                        <?php if (empty($ep->id) || empty($ep->title)) continue; ?>
                     <div class="ep" id="ep-<?= $ep->id ?>">
                         <img src="<?= $ep->cover ?>">
                         <p class="releaseTitle"><?= $ep->title ?></p>
@@ -103,6 +121,7 @@ $discography = loadDiscography();
                 <br>
                 <div id="albums">
                     <?php foreach ($discography->albums->album as $album): ?>
+                        <?php if (empty($album->id) || empty($album->title)) continue; ?>
                     <div class="album" id="album-<?= $album->id ?>">
                         <img src="<?= $album->cover ?>">
                         <div class="release-desc">
@@ -116,4 +135,3 @@ $discography = loadDiscography();
         </div>
     </div>
 </main>
-<script src="../script/discography.js"></script>
