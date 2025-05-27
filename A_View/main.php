@@ -61,6 +61,7 @@
     <script src="js/editpost.js"></script>
     <script src="js/follow.js"></script>
     <script src="js/createforum.js"></script>
+    <script src="js/commentpost.js"></script>
     <script src="../script/discography.js"></script>
 </head>
 

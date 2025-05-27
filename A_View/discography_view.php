@@ -4,17 +4,6 @@ $discography = loadDiscography();
 ?>
 
 <main>
-    <!-- Debug info -->
-    <div style="display:none">
-        <?php
-        foreach ($discography->singles->single as $single) {
-            if (!empty($single->id)) {
-                echo "Single ID: single-{$single->id}, Modal ID: modal-single-{$single->id}\n";
-            }
-        }
-        ?>
-    </div>
-
     <!-- Modals for Singles -->
     <?php foreach ($discography->singles->single as $single): ?>
         <?php if (empty($single->id) || empty($single->title)) continue; ?>
