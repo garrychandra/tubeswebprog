@@ -15,16 +15,15 @@
     <link rel="stylesheet" href="../css/responsive-navbar.css">
     <link rel="stylesheet" href="../css/responsive-home-main.css">
     <link rel="stylesheet" href="../css/forum1_revisi.css">
-    <link rel="stylesheet" href="css/isiforum.css">
-
+    <link rel="stylesheet" href="../css/isiforum.css">
     <link rel="stylesheet" href="../css/members.css">
     <link rel="stylesheet" href="../css/responsive_member.css">
-
     <link rel="stylesheet" href="../css/discography.css">
     <link rel="stylesheet" href="../css/responsive-discography.css">
-
     <link rel="stylesheet" href="../css/updates.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/followers_view.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">

@@ -1,30 +1,3 @@
-<style>
-    html {
-        color: white;
-    }
-    .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    .alert-error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-    .alert-info {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border: 1px solid #bee5eb;
-    }
-</style>
-
 <div class="profile-container">
     <div class="profile-header">
         <img src="../uploads/<?= htmlspecialchars($user['profilepic'] ?? 'default.png')?>" alt="Profile Picture" class="profile-pic" width='100' height="100">

@@ -1,0 +1,132 @@
+.c-btn {
+    width: fit-content;
+    padding: 0.5rem;
+    background-color: none;
+}
+
+/* Gaya dasar untuk kontainer followers/following */
+.user-list-container {
+    display: flex;
+    /* Untuk layout grid/flexbox */
+    flex-wrap: wrap;
+    /* Izinkan wrap ke baris berikutnya */
+    gap: 20px;
+    /* Jarak antar item user */
+    justify-content: center;
+    /* Pusatkan item jika perlu */
+    padding: 20px;
+    background-color: #2a2a2a;
+    /* Warna latar belakang gelap */
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Gaya untuk setiap item user */
+.user-list-item {
+    background-color: #333;
+    /* Latar belakang item */
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    /* Sejajarkan vertikal */
+    gap: 15px;
+    /* Jarak antara gambar dan teks */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    /* Lebar tetap untuk setiap kartu */
+    min-height: 80px;
+    /* Tinggi minimum */
+}
+
+.user-list-item img {
+    width: 50px;
+    /* Ukuran gambar profil */
+    height: 50px;
+    border-radius: 50%;
+    /* Membuat gambar bulat */
+    object-fit: cover;
+    border: 2px solid #555;
+    /* Border pada gambar */
+}
+
+.user-info {
+    flex-grow: 1;
+    /* Ambil sisa ruang */
+}
+
+.user-info a {
+    color: #eee;
+    /* Warna teks username */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.user-info a:hover {
+    text-decoration: underline;
+}
+
+.follow-button-wrapper {
+    margin-left: auto;
+    /* Dorong tombol ke kanan */
+}
+
+.follow-btn {
+    background-color: #007bff;
+    /* Warna biru untuk tombol follow */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.follow-btn:hover {
+    background-color: #0056b3;
+}
+
+.follow-btn[data-follow='0'] {
+    /* Gaya untuk tombol Unfollow */
+    background-color: #dc3545;
+    /* Warna merah untuk unfollow */
+}
+
+.follow-btn[data-follow='0']:hover {
+    background-color: #c82333;
+}
+
+/* Gaya untuk form pencarian */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #eee;
+    flex-grow: 1;
+    max-width: 300px;
+}
+
+.search-form button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    /* Warna hijau untuk search */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #218838;
+}
