@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="../A_View/css/profile.css">
 <link rel="stylesheet" href="../A_View/css/followers_view.css">
 
-<form id="searchForm" action="../A_Controller/followers_controller.php" method="get" class="search-form">
+<form id="searchForm" method="get" class="search-form">
     <input type="hidden" name="user_id" value="<?= $target_id ?>">
     <input type="hidden" name="type" value="<?= $type ?>">
     <input type="text" name="search" placeholder="Search username..." value="<?= htmlspecialchars($search) ?>">
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const type = searchForm.querySelector('input[name="type"]').value;
             const searchQuery = searchForm.querySelector('input[name="search"]').value;
 
-            const url = ../A_Controller/followers_controller.php?user_id=${encodeURIComponent(userId)}&type=${encodeURIComponent(type)}&search=${encodeURIComponent(searchQuery)}&ajax=1;
+            const url = "../A_Controller/followers_controller.php?user_id=" + userId + "&type=" + type + "&search=" + searchQuery + "&ajax=1";
 
             try {
                 const response = await fetch(url);
