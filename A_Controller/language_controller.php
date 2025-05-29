@@ -16,7 +16,7 @@ $xml_path = __DIR__ . "/lang/{$lang_code}.xml";
 // Load XML if exists, otherwise fallback to en.xml or empty object
 if (file_exists($xml_path)) {
     $lang_data = simplexml_load_file($xml_path);
-    echo "HELLO";
+    
 } else {
     $lang_data = simplexml_load_file(__DIR__ . "/assets/en.xml");
 }

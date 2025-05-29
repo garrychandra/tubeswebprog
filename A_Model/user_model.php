@@ -288,8 +288,7 @@ function clear_user_remember_token($user_id)
 function is_following($user_id, $id_follow)
 {
     global $con;
-    // Penting: Pastikan $user_id dan $id_follow sudah di-casting ke integer
-    // untuk mencegah SQL Injection paling dasar pada query ini.
+
     $user_id_safe = (int)$user_id;
     $id_follow_safe = (int)$id_follow;
 
@@ -412,8 +411,6 @@ function is_following2($my_id, $profile_id) {
     $res = mysqli_query($conn, $sql);
     return mysqli_num_rows($res) > 0;
 }
-
-
 
 
 // hapus akun

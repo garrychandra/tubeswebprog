@@ -50,7 +50,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
-    const userListContainer = document.getElementById('userListContainer');
+    const userListContainer = document.getElementById('userListContainer'); // div isi list foll
 
     if (searchForm && userListContainer) {
         searchForm.addEventListener('submit', async function(event) {

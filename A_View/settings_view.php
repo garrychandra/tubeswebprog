@@ -26,30 +26,27 @@ unset($_SESSION['errors'], $_SESSION['success']);
     <input type="password" name="curr_password"><br><br>
     <label>New Password:</label><br>
     <input type="password" name="new_password"><br><br>
-    <button type="submit" name="change-btn">Change Password</button>
 </form>
 
-<?php if(file_exists("../A_Controller/language_controller.php")): ?>
-    <?= "Say Yes";?>
-<?php endif; ?>
 
 <?php
 $current_lang = $_COOKIE['lang'] ?? 'en';
 ?>
 <p><?= $lang_data->welcome ?></p>
+
 <form method="get" action="../A_Controller/language_controller.php">
     <label>Select Language:</label><br>
-    <select name="lang"><select name="lang">
-    <option value="en" <?= $current_lang === 'en' ? 'selected' : '' ?>>English</option>
-    <option value="id" <?= $current_lang === 'id' ? 'selected' : '' ?>>Indonesia</option>
-    <option value="zh" <?= $current_lang === 'zh' ? 'selected' : '' ?>>中文</option>
-    <option value="kr" <?= $current_lang === 'kr' ? 'selected' : '' ?>>Korea</option>
-    <option value="jp" <?= $current_lang === 'jp' ? 'selected' : '' ?>>Japan</option>
-</select>
-
+    <select name="lang">
+        <option value="en" <?= $current_lang === 'en' ? 'selected' : '' ?>>English</option>
+        <option value="id" <?= $current_lang === 'id' ? 'selected' : '' ?>>Indonesia</option>
+        <option value="zh" <?= $current_lang === 'zh' ? 'selected' : '' ?>>中文</option>
+        <option value="kr" <?= $current_lang === 'kr' ? 'selected' : '' ?>>Korea</option>
+        <option value="jp" <?= $current_lang === 'jp' ? 'selected' : '' ?>>Japan</option>
     </select>
-    <button type="submit">Change</button>
+    <br><br>
+    <button type="submit">Change Language</button>
 </form>
+
 
 <?php $theme = $_COOKIE['theme'] ?? 'dark'; ?>
 <form method="get" action="../A_Controller/theme_controller.php">
