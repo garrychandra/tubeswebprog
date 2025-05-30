@@ -57,3 +57,11 @@ $current_lang = $_COOKIE['lang'] ?? 'en';
     </select>
     <button type="submit">Change Theme</button>
 </form>
+
+<div class="download-section">
+    <h2>Download Your Data</h2>
+    <form class="downloadform" method="post">
+        <button type="submit" class="download-btn">Generate Download</button>
+    </form>
+    <div id="downloadLink" style="display:none;"></div>
+</div>

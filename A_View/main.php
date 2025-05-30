@@ -83,7 +83,9 @@ $theme = $_COOKIE['theme'] ?? 'dark';
     <script src="js/follow.js"></script>
     <script src="js/createforum.js"></script>
     <script src="js/commentpost.js"></script>
-    <script src="../script/discography.js?v=<?= time() ?>"></script>
+    <script src="../script/discography.js"></script>
+    <script src="../A_View/js/download.js"></script>
+
 </head>
 
 <body class="<?= $theme === 'light' ? 'light-theme' : '' ?>">
