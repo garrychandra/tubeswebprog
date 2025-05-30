@@ -1,4 +1,4 @@
-<a href="main.php?page=searchall">Search</a>
+<button href="main.php?page=searchall">Search</button>
 
 <div class="profile-container">
     <div class="profile-header">

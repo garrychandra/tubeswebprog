@@ -1,10 +1,12 @@
 <?php
-require_once "config.php";
-$con = $GLOBALS['con'];
+$servername = "localhost";
+$username = "root";
+$password = "";
+$con = mysqli_connect($servername,$username,$password);
 
 $sql = "CREATE DATABASE IF NOT EXISTS wte";
 if (mysqli_query($con, $sql)) {
-    echo "Database 'wte' created or already exists<br>";
+    echo "Database 'wte' created<br>";
 } else {
     die("Error creating database: " . mysqli_error($con));
 }
